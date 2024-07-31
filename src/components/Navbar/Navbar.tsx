@@ -1,8 +1,8 @@
-import { AlignJustify } from "lucide-react";
 import Image from "next/image";
+import { RiMenu3Line } from "react-icons/ri";
+import NavItems from "./NavItems";
 import logotext from "/public/logo-text.png";
 import logo from "/public/logo.png";
-import NavItems from "./NavItems";
 
 const backgroundClassname = "bg-black bg-opacity-90";
 
@@ -38,7 +38,7 @@ export default function Navbar() {
               htmlFor="my-drawer"
               className="btn drawer-button bg-black text-white"
             >
-              <AlignJustify />
+              <RiMenu3Line />
             </label>
           </div>
           <div className="drawer-side">

@@ -36,7 +36,7 @@ export default function NavItems({
       return pathname === "/";
     }
     const urlArray = url.split("/");
-    return urlArray[1] === pathname;
+    return ("/" + urlArray[1]) === pathname;
   };
 
   return (
