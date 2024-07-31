@@ -1,28 +1,41 @@
+import Image from "next/image";
+import logo from "/public/logo.png";
+import logotext from "/public/logo-text.png";
+import Link from "next/link";
+
 export default function Footer() {
   return (
-    <div className="bg-base-200 text-base-content">
-      <footer className="footer bg-base-200 text-base-content p-10 max-w-[1920px] mx-auto">
-        <nav>
-          <h6 className="footer-title">Services</h6>
-          <a className="link link-hover">Branding</a>
-          <a className="link link-hover">Design</a>
-          <a className="link link-hover">Marketing</a>
-          <a className="link link-hover">Advertisement</a>
+    <div className="bg-black">
+      <footer className="footer text-white p-8 max-w-[1920px] mx-auto">
+        <a>
+          <div className="flex items-center gap-4">
+            <Image
+              src={logo}
+              height={40}
+              width={40}
+              alt="Islander's View Logo"
+              
+            />
+            <Image
+              src={logotext}
+              height={18}
+              alt="Islander's View Logo Text"
+              className=""
+            />
+          </div>
+          <span>The key to island living</span>
+        </a>
+        <nav className="flex flex-col sm:flex-row text-lg sm:gap-12 w-full justify-end">
+          <Link href={"/"} className="link link-hover">
+            Home
+          </Link>
+          <Link href={"/offers"} className="link link-hover">
+            Offers
+          </Link>
+          <Link href={"/contact"} className="link link-hover">
+            Contact us
+          </Link>
         </nav>
-        <nav>
-          <h6 className="footer-title">Company</h6>
-          <a className="link link-hover">About us</a>
-          <a className="link link-hover">Contact</a>
-          <a className="link link-hover">Jobs</a>
-          <a className="link link-hover">Press kit</a>
-        </nav>
-        <nav>
-          <h6 className="footer-title">Legal</h6>
-          <a className="link link-hover">Terms of use</a>
-          <a className="link link-hover">Privacy policy</a>
-          <a className="link link-hover">Cookie policy</a>
-        </nav>
-       
       </footer>
     </div>
   );
