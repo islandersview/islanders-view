@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = Poppins({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Islanders View",
@@ -17,10 +17,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="emerald">
-      <body className={inter.className + " flex flex-col min-h-screen"}>
+    <html lang="en" data-theme="my-theme">
+      <body className={font.className + " flex flex-col min-h-screen"}>
         <Navbar />
-        <div className="max-w-[1920px] mx-auto px-4 w-full py-2">
+        <div>
           {children}
         </div>
         <div className="mt-auto">
