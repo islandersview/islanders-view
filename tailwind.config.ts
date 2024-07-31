@@ -19,7 +19,16 @@ const config: Config = {
   plugins: [daisyui],
 
   daisyui: {
-    themes: ["emerald"]
-  }
+    themes: [
+      {
+        emerald: {
+          ...require("daisyui/src/theming/themes")["emerald"],
+          primary: "#00AA14",
+          secondary: "#84cc16",
+          "base-100": "#191919"
+        },
+      },
+    ],
+  },
 };
 export default config;
