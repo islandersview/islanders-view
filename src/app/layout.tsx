@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar/Navbar";
 const font = Poppins({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Islanders View",
+  title: "Islander's View",
   description: "Find your dream properties here in Davao City!",
 };
 
