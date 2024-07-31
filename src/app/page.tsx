@@ -126,19 +126,17 @@ export default async function Home() {
             <div className="flex items-center justify-center gap-4">
               <Image
                 src={logo}
-                height={60}
-                width={60}
+                className="h-10 sm:h-16 lg:h-20 xl:h-24 w-auto"
                 alt="Islander's View Logo"
               />
               <Image
                 src={logotext}
-                height={20}
                 alt="Islander's View Logo Text"
-                className=""
+                className="h-4 sm:h-6 lg:h-8 xl:h-10 w-auto"
               />
             </div>
             <div>
-              <p className="mx-auto max-w-[700px] mt-14 text-lg">
+              <p className="mx-auto max-w-[700px] mt-14 lg:text-lg">
                 Welcome to Islander&apos;s View, your premier destination for
                 discovering exceptional real estate and vehicles in the serene
                 landscapes of Samal and beyond. Whether you’re searching for a
