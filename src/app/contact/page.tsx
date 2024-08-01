@@ -22,8 +22,11 @@ const contactDetails = [
 ];
 
 export default function Page() {
+  // bg-gradient-to-t from-primary from-5% to-[#191919] to-40%
   return (
-    <main className=" bg-gradient-to-t from-primary from-5% to-[#191919] to-40%  text-white min-h-[80vh]">
+    <main className=" 
+      bg-[radial-gradient(at_right,_var(--tw-gradient-stops))] to-[#191919] from-primary
+      text-white min-h-[80vh]">
       <SectionWrapper>
         <div className="px-2 py-24">
           <div className="text-center">
