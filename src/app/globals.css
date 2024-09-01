@@ -24,3 +24,7 @@
 .custom-shape-divider-bottom-1722405483 .shape-fill {
     fill: #191919;
 }
+
+.mask-peso {
+    mask-image: url('/peso.svg');
+}
