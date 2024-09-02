@@ -18,7 +18,9 @@ export async function GET(req: NextRequest) {
   url.searchParams.append("populate", "images");
 
   if (category) {
-    url.searchParams.append("filters[category][$eq]", category);
+    if (category === "rent" || category === "sale") {
+      url.searchParams.append("filters[category][$eq]", category);
+    }
   }
 
   if (type) {

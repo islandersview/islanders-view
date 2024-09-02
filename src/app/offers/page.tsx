@@ -12,7 +12,7 @@ const getItems = async (params: any) => {
   return data;
 };
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -57,7 +57,7 @@ const page = () => {
     router.push(`/offers?${newQuery.toString()}`);
   }, [selectedCategories, selectedTypes, price, sort]); // Only run when these change
 
-  const handleCheckboxChange = (key, value) => {
+  const handleCheckboxChange = (key : any, value : any) => {
     if (key === "category") {
       setSelectedCategories((prev) =>
         prev.includes(value)
@@ -253,8 +253,8 @@ const page = () => {
         {/* Items Grid */}
         <div className="w-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {items.map((item) => (
-              <div className="card card-normal bg-slate-100 text-black shadow-xl">
+            {items.map((item,index) => (
+              <div className="card card-normal bg-slate-100 text-black shadow-xl" key={`item-${index}`}>
                 <figure>
                   <img
                     src={item.attributes.images.data[0].attributes.url}
@@ -319,4 +319,4 @@ const page = () => {
 //Whenever a user clicks an item card, a modal pops-up with the item details
 //UseState if there are changes in the filter or sort, the page would be updated (UseEffect would run again)
 
-export default page;
+export default Page;
