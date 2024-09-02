@@ -24,7 +24,10 @@ export async function GET(req: NextRequest) {
   }
 
   if (type) {
-    url.searchParams.append("filters[type][$eq]", type);
+    const arr = type.split(",");
+    for (let i = 0; i < arr.length; i++) {
+      url.searchParams.append(`filters[type][$in][${i}]`, arr[i]);
+    }
   }
 
   if (price) {
