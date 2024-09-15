@@ -3,7 +3,6 @@
 import SectionWrapper from "@/components/SectionWrapper";
 import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Image from "next/image";
 
 const getItems = async (params: any) => {
   const query = new URLSearchParams(params).toString();
@@ -17,6 +16,12 @@ const Page = () => {
   const searchParams = useSearchParams();
 
   const [items, setItems] = useState<any[]>([]);
+
+  const [currentPage, setCurrentPage] = useState(
+    Number(searchParams.get("page")) || 1
+  );
+  const [pageCount, setPageCount] = useState(1); // Default to 1
+
   const [searchTerm, setSearchTerm] = useState(searchParams.get("name") || "");
 
   const [selectedCategories, setSelectedCategories] = useState(
@@ -30,19 +35,32 @@ const Page = () => {
   const [sort, setSort] = useState(searchParams.get("sort") || "");
 
   useEffect(() => {
-    async function fetchData() {
-      const params = {
-        name: searchParams.get("name") || "",
-        category: selectedCategories.filter(Boolean).join(","),
-        type: selectedTypes.filter(Boolean).join(","),
-        price: searchParams.get("price") || "",
-        sort: searchParams.get("sort") || "",
-      };
-      const data = await getItems(params);
-      setItems(data.data);
-    }
-    fetchData();
-  }, [searchParams, selectedCategories, selectedTypes, price, sort]);
+    const timer = setTimeout(() => {
+      async function fetchData() {
+        const params = {
+          name: searchParams.get("name") || "",
+          category: selectedCategories.filter(Boolean).join(","),
+          type: selectedTypes.filter(Boolean).join(","),
+          price: price || "",
+          sort: sort || "",
+          page: currentPage,
+        };
+        const data = await getItems(params);
+        setItems(data.data);
+        setPageCount(data.meta.pagination.pageCount);
+      }
+      fetchData();
+    }, 300);
+
+    return () => clearTimeout(timer); // Cleanup to avoid memory leaks
+  }, [
+    currentPage,
+    searchParams,
+    selectedCategories,
+    selectedTypes,
+    price,
+    sort,
+  ]);
 
   useEffect(() => {
     const newQuery = new URLSearchParams({
@@ -57,7 +75,7 @@ const Page = () => {
     router.push(`/offers?${newQuery.toString()}`);
   }, [selectedCategories, selectedTypes, price, sort]); // Only run when these change
 
-  const handleCheckboxChange = (key : any, value : any) => {
+  const handleCheckboxChange = (key: any, value: any) => {
     if (key === "category") {
       setSelectedCategories((prev) =>
         prev.includes(value)
@@ -77,12 +95,55 @@ const Page = () => {
     }
   };
 
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    const newQuery = new URLSearchParams({
+      ...Object.fromEntries(searchParams.entries()),
+      page: newPage.toString(),
+    });
+    router.push(`/offers?${newQuery.toString()}`);
+  };
+
   const handleSearch = () => {
     const newQuery = new URLSearchParams({
       ...Object.fromEntries(searchParams.entries()),
       name: searchTerm,
     });
     router.push(`/offers?${newQuery.toString()}`);
+  };
+
+  const renderPageNumbers = () => {
+    const pages = [];
+    const maxPageButtons = 5; // Limit of visible buttons before and after current page
+    const sidePages = 2; // Number of side pages to show before and after current page
+
+    // Always show the first page
+    if (currentPage > sidePages + 1) {
+      pages.push(1);
+    }
+    if (currentPage > sidePages + 2) {
+      pages.push("...");
+    }
+
+    // Display some pages around the current page
+    for (
+      let i = Math.max(1, currentPage - sidePages);
+      i <= Math.min(pageCount, currentPage + sidePages);
+      i++
+    ) {
+      pages.push(i);
+    }
+
+    // Add ellipsis before the last page if needed
+    if (currentPage < pageCount - sidePages - 1) {
+      pages.push("...");
+    }
+    // Always show the last page
+    if (currentPage < pageCount - sidePages) {
+      pages.push(pageCount);
+    }
+
+    return pages;
   };
 
   return (
@@ -194,7 +255,6 @@ const Page = () => {
                   setPrice(e.target.value);
                   handleCheckboxChange("price", e.target.value);
                 }}
-                defaultChecked
               />
               <input
                 type="radio"
@@ -253,8 +313,11 @@ const Page = () => {
         {/* Items Grid */}
         <div className="w-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {items.map((item,index) => (
-              <div className="card card-normal bg-slate-100 text-black shadow-xl" key={`item-${index}`}>
+            {items.map((item, index) => (
+              <div
+                className="card card-normal bg-slate-100 text-black shadow-xl"
+                key={`item-${index}`}
+              >
                 <figure>
                   <img
                     src={item.attributes.images.data[0].attributes.url}
@@ -287,25 +350,46 @@ const Page = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-4">
         <div className="join bg-slate-100">
-          <button className="join-item btn bg-slate-100 border-gray-50">
+          {/* Previous Button */}
+          <button
+            className={`join-item btn bg-slate-100 border-gray-50 ${
+              currentPage === 1 && "btn-disabled"
+            }`}
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
             «
           </button>
-          <button className="join-item btn bg-slate-100 border-gray-50">
-            1
-          </button>
-          <button className="join-item btn bg-slate-100 border-gray-50">
-            2
-          </button>
-          <button className="join-item btn btn-disabled">...</button>
-          <button className="join-item btn bg-slate-100 border-gray-50">
-            99
-          </button>
-          <button className="join-item btn bg-slate-100 border-gray-50">
-            100
-          </button>
-          <button className="join-item btn bg-slate-100 border-gray-50">
+
+          {/* Page Numbers with Ellipsis */}
+          {renderPageNumbers().map((page, index) =>
+            page === "..." ? (
+              <button key={index} className="join-item btn btn-disabled">
+                ...
+              </button>
+            ) : (
+              <button
+                key={index}
+                className={`join-item btn bg-slate-100 border-gray-50 ${
+                  currentPage === page && "btn-primary"
+                }`}
+                onClick={() => handlePageChange(page as number)}
+              >
+                {page}
+              </button>
+            )
+          )}
+
+          {/* Next Button */}
+          <button
+            className={`join-item btn bg-slate-100 border-gray-50 ${
+              currentPage === pageCount && "btn-disabled"
+            }`}
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === pageCount}
+          >
             »
           </button>
         </div>
@@ -314,9 +398,9 @@ const Page = () => {
   );
 };
 
+export default Page;
+
 //The page parameters would be updated, refer to url based on postman api
 //The page would be updated based on the parameters
 //Whenever a user clicks an item card, a modal pops-up with the item details
 //UseState if there are changes in the filter or sort, the page would be updated (UseEffect would run again)
-
-export default Page;
