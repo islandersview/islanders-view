@@ -146,6 +146,11 @@ const Page = () => {
     return pages;
   };
 
+  const handleItemClick = (slug: string) => {
+    // Navigate to the item's detail page
+    router.push(`/offers/${slug}`);
+  };
+
   return (
     <SectionWrapper>
       {/* Search bar */}
@@ -317,6 +322,7 @@ const Page = () => {
               <div
                 className="card card-normal bg-slate-100 text-black shadow-xl"
                 key={`item-${index}`}
+                onClick={() => handleItemClick(item.attributes.slug)}
               >
                 <figure>
                   <img
@@ -350,7 +356,7 @@ const Page = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-4 mb-8">
         <div className="join bg-slate-100">
           {/* Previous Button */}
           <button
@@ -372,8 +378,8 @@ const Page = () => {
             ) : (
               <button
                 key={index}
-                className={`join-item btn bg-slate-100 border-gray-50 ${
-                  currentPage === page && "btn-primary"
+                className={`join-item btn btn-primary bg-slate-100 border-gray-50 ${
+                  currentPage === page && "bg-primary border-primary"
                 }`}
                 onClick={() => handlePageChange(page as number)}
               >
