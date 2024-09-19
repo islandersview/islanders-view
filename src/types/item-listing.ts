@@ -49,6 +49,7 @@ type ImageData = {
 
 type ItemAttributes = {
   name: string;
+  address: string;
   description: any; // description can be of any type
   category: string;
   type: string;

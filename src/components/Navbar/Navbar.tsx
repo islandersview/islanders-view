@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { RiMenu3Line } from "react-icons/ri";
 import NavItems from "./NavItems";
 import logotext from "/public/logo-text.png";
@@ -11,7 +12,7 @@ export default function Navbar() {
     <div className={backgroundClassname}>
       <div className="navbar text-white mx-auto max-w-[1920px]">
         <div className="navbar-start">
-          <a className="btn btn-ghost text-xl">
+          <Link href={"/"} className="btn btn-ghost text-xl">
             <Image
               src={logo}
               height={40}
@@ -25,7 +26,7 @@ export default function Navbar() {
               alt="Islander's View Logo Text"
               className="hidden sm:inline-block"
             />
-          </a>
+          </Link>
         </div>
 
         <div className="navbar-end hidden md:flex">

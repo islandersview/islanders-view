@@ -1,8 +1,10 @@
 "use client";
 
+import ItemCard from "@/components/ItemCard";
 import SectionWrapper from "@/components/SectionWrapper";
-import React, { useEffect, useState } from "react";
+import ItemListing from "@/types/item-listing";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
 const getItems = async (params: any) => {
   const query = new URLSearchParams(params).toString();
@@ -15,12 +17,21 @@ const Page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const [loading, setLoading] = useState(true);
+
   const [items, setItems] = useState<any[]>([]);
 
   const [currentPage, setCurrentPage] = useState(
     Number(searchParams.get("page")) || 1
   );
   const [pageCount, setPageCount] = useState(1); // Default to 1
+
+  const [paginationData, setPaginationData] = useState<{
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
+  }>();
 
   const [searchTerm, setSearchTerm] = useState(searchParams.get("name") || "");
 
@@ -37,6 +48,7 @@ const Page = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       async function fetchData() {
+        setLoading(true);
         const params = {
           name: searchParams.get("name") || "",
           category: selectedCategories.filter(Boolean).join(","),
@@ -48,6 +60,8 @@ const Page = () => {
         const data = await getItems(params);
         setItems(data.data);
         setPageCount(data.meta.pagination.pageCount);
+        setPaginationData(data.meta.pagination);
+        setLoading(false);
       }
       fetchData();
     }, 300);
@@ -104,13 +118,13 @@ const Page = () => {
     router.push(`/offers?${newQuery.toString()}`);
   };
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     const newQuery = new URLSearchParams({
       ...Object.fromEntries(searchParams.entries()),
       name: searchTerm,
     });
     router.push(`/offers?${newQuery.toString()}`);
-  };
+  }, [router, searchParams, searchTerm]);
 
   const renderPageNumbers = () => {
     const pages = [];
@@ -151,6 +165,16 @@ const Page = () => {
     router.push(`/offers/${slug}`);
   };
 
+  useEffect(() => {
+    const handleEnter = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        handleSearch();
+      }
+    };
+    window.addEventListener("keydown", handleEnter);
+    return () => window.removeEventListener("keydown", handleEnter);
+  }, [searchTerm, handleSearch]);
+
   return (
     <SectionWrapper>
       {/* Search bar */}
@@ -170,127 +194,182 @@ const Page = () => {
         </button>
       </div>
 
-      <div className="flex text-white p-4 max-w-screen-2xl mx-auto">
+      <div className="flex flex-col lg:flex-row gap-4 text-white p-4 max-w-screen-2xl mx-auto">
         {/* Sidebar */}
-        <div className="w-1/3 py-6 px-4 bg-green-900 rounded-lg mr-4 h-min">
+        <div className="xl:w-[300px] py-6 px-4 bg-green-900 rounded-lg mr-4 h-min">
           {/* Categories */}
-          <div className="mb-4">
-            <h4 className="text-lg font-semibold mb-2">Category</h4>
-            <label className="flex items-center mb-2">
-              <input
-                type="checkbox"
-                value="sale"
-                checked={selectedCategories.includes("sale")}
-                onChange={(e) =>
-                  handleCheckboxChange("category", e.target.value)
-                }
-                className="checkbox checkbox-secondary mr-2"
-              />
-              For Sale
-            </label>
-            <label className="flex items-center mb-2">
-              <input
-                type="checkbox"
-                value="rent"
-                checked={selectedCategories.includes("rent")}
-                onChange={(e) =>
-                  handleCheckboxChange("category", e.target.value)
-                }
-                className="checkbox checkbox-secondary mr-2"
-              />
-              Rentals
-            </label>
-          </div>
-
-          {/* Types */}
-          <div className="mb-4">
-            <h4 className="text-lg font-semibold mb-2">Type</h4>
-            <label className="flex items-center mb-2">
-              <input
-                type="checkbox"
-                value="real estate"
-                checked={selectedTypes.includes("real estate")}
-                onChange={(e) => handleCheckboxChange("type", e.target.value)}
-                className="checkbox checkbox-secondary mr-2"
-              />
-              Real Estate
-            </label>
-            <label className="flex items-center mb-2">
-              <input
-                type="checkbox"
-                value="vehicle"
-                checked={selectedTypes.includes("vehicle")}
-                onChange={(e) => handleCheckboxChange("type", e.target.value)}
-                className="checkbox checkbox-secondary mr-2"
-              />
-              Vehicle
-            </label>
-            <label className="flex items-center mb-2">
-              <input
-                type="checkbox"
-                value="other"
-                checked={selectedTypes.includes("other")}
-                onChange={(e) => handleCheckboxChange("type", e.target.value)}
-                className="checkbox checkbox-secondary mr-2"
-              />
-              Other
-            </label>
-          </div>
-
-          {/* Price */}
-          <div className="mb-4">
-            <h4 className="text-lg font-semibold mb-2">Price</h4>
-            <div className="rating gap-1">
-              <input
-                type="radio"
-                name="price"
-                value="1"
-                className="mask mask-peso bg-secondary"
-                onChange={(e) => {
-                  setPrice(e.target.value);
-                  handleCheckboxChange("price", e.target.value);
-                }}
-              />
-              <input
-                type="radio"
-                name="price"
-                value="2"
-                className="mask mask-peso bg-secondary"
-                onChange={(e) => {
-                  setPrice(e.target.value);
-                  handleCheckboxChange("price", e.target.value);
-                }}
-              />
-              <input
-                type="radio"
-                name="price"
-                value="3"
-                className="mask mask-peso bg-secondary"
-                onChange={(e) => {
-                  setPrice(e.target.value);
-                  handleCheckboxChange("price", e.target.value);
-                }}
-              />
-              <input
-                type="radio"
-                name="price"
-                value="4"
-                className="mask mask-peso bg-secondary"
-                onChange={(e) => {
-                  setPrice(e.target.value);
-                  handleCheckboxChange("price", e.target.value);
-                }}
-              />
-              <input
-                type="radio"
-                name="price"
-                value="5"
-                className="mask mask-peso bg-secondary"
-                onChange={(e) => {
-                  setPrice(e.target.value);
-                  handleCheckboxChange("price", e.target.value);
-                }}
-              />
+          <div className="flex flex-wrap gap-6 mb-6">
+            <div>
+              <h4 className="text-lg font-semibold mb-2">Category</h4>
+              <label className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  value="sale"
+                  checked={selectedCategories.includes("sale")}
+                  onChange={(e) =>
+                    handleCheckboxChange("category", e.target.value)
+                  }
+                  className="checkbox checkbox-secondary mr-2"
+                />
+                For Sale
+              </label>
+              <label className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  value="rent"
+                  checked={selectedCategories.includes("rent")}
+                  onChange={(e) =>
+                    handleCheckboxChange("category", e.target.value)
+                  }
+                  className="checkbox checkbox-secondary mr-2"
+                />
+                Rentals
+              </label>
+            </div>
+            {/* Types */}
+            <div className="mb-4">
+              <h4 className="text-lg font-semibold mb-2">Type</h4>
+              <label className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  value="real estate"
+                  checked={selectedTypes.includes("real estate")}
+                  onChange={(e) => handleCheckboxChange("type", e.target.value)}
+                  className="checkbox checkbox-secondary mr-2"
+                />
+                Real Estate
+              </label>
+              <label className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  value="vehicle"
+                  checked={selectedTypes.includes("vehicle")}
+                  onChange={(e) => handleCheckboxChange("type", e.target.value)}
+                  className="checkbox checkbox-secondary mr-2"
+                />
+                Vehicle
+              </label>
+              <label className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  value="other"
+                  checked={selectedTypes.includes("other")}
+                  onChange={(e) => handleCheckboxChange("type", e.target.value)}
+                  className="checkbox checkbox-secondary mr-2"
+                />
+                Other
+              </label>
+            </div>
+            {/* Price */}
+            <div>
+              <h4 className="text-lg font-semibold mb-2">Price</h4>
+              <div className="rating gap-1">
+                <input
+                  type="radio"
+                  name="price"
+                  value="1"
+                  className="mask mask-peso bg-secondary"
+                  onChange={(e) => {          {/* Price */}
+                  <div className="mb-4">
+                    <h4 className="text-lg font-semibold mb-2">Price</h4>
+                    <div className="rating gap-1">
+                      <input
+                        type="radio"
+                        name="price"
+                        value="1"
+                        className="mask mask-peso bg-secondary"
+                        onChange={(e) => {
+                          setPrice(e.target.value);
+                          handleCheckboxChange("price", e.target.value);
+                        }}
+                      />
+                      <input
+                        type="radio"
+                        name="price"
+                        value="2"
+                        className="mask mask-peso bg-secondary"
+                        onChange={(e) => {
+                          setPrice(e.target.value);
+                          handleCheckboxChange("price", e.target.value);
+                        }}
+                      />
+                      <input
+                        type="radio"
+                        name="price"
+                        value="3"
+                        className="mask mask-peso bg-secondary"
+                        onChange={(e) => {
+                          setPrice(e.target.value);
+                          handleCheckboxChange("price", e.target.value);
+                        }}
+                      />
+                      <input
+                        type="radio"
+                        name="price"
+                        value="4"
+                        className="mask mask-peso bg-secondary"
+                        onChange={(e) => {
+                          setPrice(e.target.value);
+                          handleCheckboxChange("price", e.target.value);
+                        }}
+                      />
+                      <input
+                        type="radio"
+                        name="price"
+                        value="5"
+                        className="mask mask-peso bg-secondary"
+                        onChange={(e) => {
+                          setPrice(e.target.value);
+                          handleCheckboxChange("price", e.target.value);
+                        }}
+                      />
+                    </div>
+                  </div>
+                    setPrice(e.target.value);
+                    handleCheckboxChange("price", e.target.value);
+                  }}
+                />
+                <input
+                  type="radio"
+                  name="price"
+                  value="2"
+                  className="mask mask-peso bg-secondary"
+                  onChange={(e) => {
+                    setPrice(e.target.value);
+                    handleCheckboxChange("price", e.target.value);
+                  }}
+                />
+                <input
+                  type="radio"
+                  name="price"
+                  value="3"
+                  className="mask mask-peso bg-secondary"
+                  onChange={(e) => {
+                    setPrice(e.target.value);
+                    handleCheckboxChange("price", e.target.value);
+                  }}
+                />
+                <input
+                  type="radio"
+                  name="price"
+                  value="4"
+                  className="mask mask-peso bg-secondary"
+                  onChange={(e) => {
+                    setPrice(e.target.value);
+                    handleCheckboxChange("price", e.target.value);
+                  }}
+                />
+                <input
+                  type="radio"
+                  name="price"
+                  value="5"
+                  className="mask mask-peso bg-secondary"
+                  onChange={(e) => {
+                    setPrice(e.target.value);
+                    handleCheckboxChange("price", e.target.value);
+                  }}
+                />
+              </div>
             </div>
           </div>
 
@@ -314,136 +393,165 @@ const Page = () => {
             </select>
           </div>
         </div>
-
         {/* Items Grid */}
-        <div className="w-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {items.map((item, index) => (
-              <div
-                className="card card-normal bg-slate-100 text-black shadow-xl"
-                key={`item-${index}`}
-                onClick={() => handleItemClick(item.attributes.slug)}
-              >
-                <figure>
-                  <img
-                    src={item.attributes.images.data[0].attributes.url}
-                    alt="Picture"
-                  />
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title">
-                    {item.attributes.name}
-                    <div className="badge badge-secondary text-black">
-                      {"₱ ".repeat(item.attributes.price)}
+        {!loading && (
+          <>
+            <div className="w-auto">
+              {items.length !== 0 && (
+                <>
+                  {paginationData && (
+                    <div className="mb-2">
+                      {searchParams.get("name") && (
+                        <div>
+                          Search:{" "}
+                          <span className="font-bold">
+                            {searchParams.get("name")}
+                          </span>
+                        </div>
+                      )}
+                      <div>
+                        Showing{" "}
+                        {paginationData.pageSize * (paginationData.page - 1) +
+                          1}
+                        -
+                        {paginationData.pageSize * (paginationData.page - 1) +
+                          items.length}{" "}
+                        of {paginationData?.total}
+                      </div>
                     </div>
-                  </h2>
-                  <p>Insert Description Text Here</p>
-                  <div className="card-actions justify-end">
-                    <div className="badge badge-outline">
-                      {item.attributes.category.charAt(0).toUpperCase() +
-                        item.attributes.category.slice(1)}
-                    </div>
-                    <div className="badge badge-outline">
-                      {item.attributes.type.charAt(0).toUpperCase() +
-                        item.attributes.type.slice(1)}
-                    </div>
+                  )}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {items.map((item: ItemListing, index) => (
+                      <ItemCard
+                        item={item}
+                        key={`item-card-${index}`}
+                        onClick={() => handleItemClick(item.attributes.slug)}
+                      />
+                    ))}
                   </div>
+                </>
+              )}
+              {items.length === 0 && (
+                <div className="flex items-center justify-center">
+                  <h2 className="text-2xl font-semibold text-gray-500">
+                    No items found
+                  </h2>
                 </div>
+              )}
+            </div>
+          </>
+        )}
+        {loading && (
+          <div className="flex gap-4">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div
+                className="flex w-60 flex-col gap-6 "
+                key={`skeleton-${index}`}
+              >
+                <div className="skeleton h-32 w-full"></div>
+                <div className="skeleton h-4 w-28"></div>
+                <div className="skeleton h-4 w-full"></div>
+                <div className="skeleton h-4 w-full"></div>
               </div>
             ))}
           </div>
-        </div>
+        )}
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center mt-4 mb-8">
-        <div className="join ">
-          {/* Previous Button */}
-          <button
-            className={`join-item btn btn-outline-primary text-primary text-2xl ${
-              currentPage === 1 && "btn-disabled"
-            }`}
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            «
-          </button>
+      {pageCount !== 0 && (
+        <div className="flex justify-center mt-4 mb-8">
+          <div className="join ">
+            {/* Previous Button */}
+            <button
+              className={`join-item btn btn-outline-primary text-primary text-2xl ${
+                currentPage === 1 && "btn-disabled"
+              }`}
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              «
+            </button>
 
-          {/* Page Numbers with Ellipsis */}
-          {(() => {
-            const pageButtons = [];
+            {/* Page Numbers with Ellipsis */}
+            {(() => {
+              const pageButtons = [];
 
-            // Add the first page
-            pageButtons.push({ pageNumberDisplay: "1", pageNumberFunction: 1 });
-
-            // Add ellipsis if necessary
-            if (currentPage > 5) {
+              // Add the first page
               pageButtons.push({
-                pageNumberDisplay: "...",
-                pageNumberFunction: currentPage - 1,
-              }); // Navigate to the page above
-            }
-
-            // Determine the range of current and surrounding pages
-            const startPage = Math.max(2, currentPage - 2);
-            const endPage = Math.min(pageCount - 1, currentPage + 2);
-            for (let i = startPage; i <= endPage; i++) {
-              pageButtons.push({
-                pageNumberDisplay: i.toString(),
-                pageNumberFunction: i,
+                pageNumberDisplay: "1",
+                pageNumberFunction: 1,
               });
-            }
 
-            // Add ellipsis and last page if necessary
-            if (currentPage < pageCount - 3) {
-              if (currentPage < pageCount - 4) {
+              // Add ellipsis if necessary
+              if (currentPage > 5) {
                 pageButtons.push({
                   pageNumberDisplay: "...",
-                  pageNumberFunction: currentPage + 1,
-                }); // Navigate to the page below
+                  pageNumberFunction: currentPage - 1,
+                }); // Navigate to the page above
               }
-            }
-            pageButtons.push({
-              pageNumberDisplay: pageCount.toString(),
-              pageNumberFunction: pageCount,
-            });
 
-            return pageButtons.map((page, index) =>
-              page.pageNumberFunction === null ? (
-                <button
-                  key={index}
-                  className="join-item btn text-primary"
-                  onClick={() => handlePageChange(currentPage + 1)} // Default action (you can adjust this)
-                >
-                  {page.pageNumberDisplay}
-                </button>
-              ) : (
-                <button
-                  key={index}
-                  className={`join-item btn btn-outline-primary text-primary ${
-                    currentPage === page.pageNumberFunction &&
-                    "border-primary z-20"
-                  }`}
-                  onClick={() => handlePageChange(page.pageNumberFunction)}
-                >
-                  {page.pageNumberDisplay}
-                </button>
-              )
-            );
-          })()}
+              // Determine the range of current and surrounding pages
+              const startPage = Math.max(2, currentPage - 2);
+              const endPage = Math.min(pageCount - 1, currentPage + 2);
+              for (let i = startPage; i <= endPage; i++) {
+                pageButtons.push({
+                  pageNumberDisplay: i.toString(),
+                  pageNumberFunction: i,
+                });
+              }
 
-          {/* Next Button */}
-          <button
-            className={`join-item btn btn-outline-primary text-primary text-2xl ${
-              currentPage === pageCount && "btn-disabled"
-            }`}
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === pageCount}
-          >
-            »
-          </button>
+              // Add ellipsis and last page if necessary
+              if (currentPage < pageCount - 3) {
+                if (currentPage < pageCount - 4) {
+                  pageButtons.push({
+                    pageNumberDisplay: "...",
+                    pageNumberFunction: currentPage + 1,
+                  }); // Navigate to the page below
+                }
+              }
+              pageButtons.push({
+                pageNumberDisplay: pageCount.toString(),
+                pageNumberFunction: pageCount,
+              });
+
+              return pageButtons.map((page, index) =>
+                page.pageNumberFunction === null ? (
+                  <button
+                    key={index}
+                    className="join-item btn text-primary"
+                    onClick={() => handlePageChange(currentPage + 1)} // Default action (you can adjust this)
+                  >
+                    {page.pageNumberDisplay}
+                  </button>
+                ) : (
+                  <button
+                    key={index}
+                    className={`join-item btn btn-outline-primary text-primary ${
+                      currentPage === page.pageNumberFunction &&
+                      "border-primary z-20"
+                    }`}
+                    onClick={() => handlePageChange(page.pageNumberFunction)}
+                  >
+                    {page.pageNumberDisplay}
+                  </button>
+                )
+              );
+            })()}
+
+            {/* Next Button */}
+            <button
+              className={`join-item btn btn-outline-primary text-primary text-2xl ${
+                currentPage === pageCount && "btn-disabled"
+              }`}
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === pageCount}
+            >
+              »
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </SectionWrapper>
   );
 };

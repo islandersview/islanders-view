@@ -5,6 +5,7 @@ import Image from "next/image";
 import logo from "/public/logo.png";
 import logotext from "/public/logo-text.png";
 import ItemListing from "@/types/item-listing";
+import ItemCard from "@/components/ItemCard";
 
 const images = [placeholderImg, placeholderImg, placeholderImg];
 
@@ -30,7 +31,7 @@ export default async function Home() {
               seamless buying experience you deserve.
             </p>
             <Link href={"/offers"}>
-              <button className="btn btn-primary mt-6 btn-wide">
+              <button className="btn btn-primary mt-6 btn-wide font-bold">
                 Explore Offers
               </button>
             </Link>
@@ -82,25 +83,16 @@ export default async function Home() {
             <p className="text-green-900 text-lg mt-2">
               Best Deals on Wheels and Real Estate
             </p>
-            <div>
+            <div className="flex flex-col items-center justify-center gap-4 mt-8 lg:flex-row">
               {/* temporary rendering, finalize after the card is final */}
               {data.data.map((item: ItemListing) => (
-                <div
-                  className="flex flex-col items-center justify-center"
-                  key={`${item.id}-${item.attributes.slug}`}
-                >
-                  <Image
-                    src={item.attributes.images.data[0].attributes.url}
-                    alt="item image"
-                    width={50}
-                    height={50}
+                <Link key={`item-${item.id}`} href={`/offers/${item.attributes.slug}`}>
+                  <ItemCard
+                    key={item.id}
+                    item={item}
+                    className="max-w-[400px] text-left"
                   />
-                  <div className="">
-                    <h3 className="text-lg font-semibold">
-                      {item.attributes.name}
-                    </h3>
-                  </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

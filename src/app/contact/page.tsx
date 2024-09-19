@@ -37,7 +37,7 @@ export default function Page() {
               Let&apos;s talk about your dream property, on the time you like.
             </p>
           </div>
-          <section className=" bg-black bg-opacity-25 rounded-2xl p-6 lg:p-12 mt-16 max-w-[700px] mx-auto">
+          <section className=" bg-black bg-opacity-75 rounded-2xl p-10 lg:p-12 mt-16 max-w-[700px] mx-auto">
             <h2 className="text-3xl font-bold text-primary">Contact Information</h2>
             <div>
               {contactDetails.map((detail, index) => (
