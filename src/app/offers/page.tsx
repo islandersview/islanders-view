@@ -357,10 +357,10 @@ const Page = () => {
 
       {/* Pagination */}
       <div className="flex justify-center mt-4 mb-8">
-        <div className="join bg-slate-100">
+        <div className="join ">
           {/* Previous Button */}
           <button
-            className={`join-item btn bg-slate-100 border-gray-50 ${
+            className={`join-item btn btn-outline-primary text-primary text-2xl ${
               currentPage === 1 && "btn-disabled"
             }`}
             onClick={() => handlePageChange(currentPage - 1)}
@@ -370,27 +370,71 @@ const Page = () => {
           </button>
 
           {/* Page Numbers with Ellipsis */}
-          {renderPageNumbers().map((page, index) =>
-            page === "..." ? (
-              <button key={index} className="join-item btn btn-disabled">
-                ...
-              </button>
-            ) : (
-              <button
-                key={index}
-                className={`join-item btn btn-primary bg-slate-100 border-gray-50 ${
-                  currentPage === page && "bg-primary border-primary"
-                }`}
-                onClick={() => handlePageChange(page as number)}
-              >
-                {page}
-              </button>
-            )
-          )}
+          {(() => {
+            const pageButtons = [];
+
+            // Add the first page
+            pageButtons.push({ pageNumberDisplay: "1", pageNumberFunction: 1 });
+
+            // Add ellipsis if necessary
+            if (currentPage > 5) {
+              pageButtons.push({
+                pageNumberDisplay: "...",
+                pageNumberFunction: currentPage - 1,
+              }); // Navigate to the page above
+            }
+
+            // Determine the range of current and surrounding pages
+            const startPage = Math.max(2, currentPage - 2);
+            const endPage = Math.min(pageCount - 1, currentPage + 2);
+            for (let i = startPage; i <= endPage; i++) {
+              pageButtons.push({
+                pageNumberDisplay: i.toString(),
+                pageNumberFunction: i,
+              });
+            }
+
+            // Add ellipsis and last page if necessary
+            if (currentPage < pageCount - 3) {
+              if (currentPage < pageCount - 4) {
+                pageButtons.push({
+                  pageNumberDisplay: "...",
+                  pageNumberFunction: currentPage + 1,
+                }); // Navigate to the page below
+              }
+            }
+            pageButtons.push({
+              pageNumberDisplay: pageCount.toString(),
+              pageNumberFunction: pageCount,
+            });
+
+            return pageButtons.map((page, index) =>
+              page.pageNumberFunction === null ? (
+                <button
+                  key={index}
+                  className="join-item btn text-primary"
+                  onClick={() => handlePageChange(currentPage + 1)} // Default action (you can adjust this)
+                >
+                  {page.pageNumberDisplay}
+                </button>
+              ) : (
+                <button
+                  key={index}
+                  className={`join-item btn btn-outline-primary text-primary ${
+                    currentPage === page.pageNumberFunction &&
+                    "border-primary z-20"
+                  }`}
+                  onClick={() => handlePageChange(page.pageNumberFunction)}
+                >
+                  {page.pageNumberDisplay}
+                </button>
+              )
+            );
+          })()}
 
           {/* Next Button */}
           <button
-            className={`join-item btn bg-slate-100 border-gray-50 ${
+            className={`join-item btn btn-outline-primary text-primary text-2xl ${
               currentPage === pageCount && "btn-disabled"
             }`}
             onClick={() => handlePageChange(currentPage + 1)}

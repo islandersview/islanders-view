@@ -48,6 +48,7 @@ export async function GET(req: NextRequest) {
 
   if (page) {
     url.searchParams.append("pagination[page]", page);
+    url.searchParams.append("pagination[pageSize]", "3")
   }
 
   const response = await fetch(url.toString(), {
