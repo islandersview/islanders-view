@@ -31,8 +31,8 @@ export default function ItemCard({ onClick, item, className }: Props) {
           
         </h2>
         <p>
-          <MapPin />
-          {item.attributes.address}
+          <MapPin className="inline text-accent -ml-1 mr-1"/>
+          {item.attributes.address ? item.attributes.address : "Davao City"}
         </p>
         <section className="flex items-center gap-2 justify-between flex-wrap">
             <div className="flex gap-2">
