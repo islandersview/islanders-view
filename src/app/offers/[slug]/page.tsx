@@ -5,6 +5,29 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { ArrowLeft, MapPin, Milestone, Section } from "lucide-react";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
+import { FaPhoneAlt } from "react-icons/fa";
+import { FaFacebookMessenger, FaViber } from "react-icons/fa6";
+import { IoIosMail } from "react-icons/io";
+
+// Contact Information
+const contactDetails = [
+  {
+    icon: <IoIosMail size={32} />,
+    text: "islandersview.inquiry@gmail.com",
+  },
+  {
+    icon: <FaFacebookMessenger size={24} />,
+    text: "islandersview",
+  },
+  {
+    icon: <FaViber size={24} />,
+    text: "09945678901",
+  },
+  {
+    icon: <FaPhoneAlt size={20} />,
+    text: "09945678901",
+  },
+];
 
 // Function to fetch item details from the API
 const getItemDetailsBySlug = async (slug: string) => {
@@ -56,7 +79,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
           className="btn btn-ghost mb-4"
           onClick={() => window.history.back()}
         >
-          <ArrowLeft className="inline text-gray-200 -ml-1 mr-1"/>
+          <ArrowLeft className="inline text-gray-200 -ml-1 mr-1" />
         </button>
 
         {/* Carousel */}
@@ -172,7 +195,29 @@ const Page = ({ params }: { params: { slug: string } }) => {
           <BlocksRenderer content={item.description} />
         </article>
 
-        <section></section>
+        {/* Contact Information */}
+        <section className=" bg-black bg-opacity-75 rounded-2xl py-6 px-12 mt-5 max-w-[700px] mx-auto">
+          <div className="text-center mb-4">
+            <h1 className=" text-2xl font-bold">
+              Get In <span className="text-secondary">Touch</span> With Us!
+            </h1>
+            <p className="mt-4 text">
+              Interested in the property? Don't wait until your chance is over.
+              Contact us now!
+            </p>
+          </div>
+          <div>
+            {contactDetails.map((detail, index) => (
+              <div
+                key={index}
+                className="flex items-center mt-4"
+              >
+                <div className="w-12">{detail.icon}</div>
+                <div>{detail.text}</div>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </SectionWrapper>
   );
