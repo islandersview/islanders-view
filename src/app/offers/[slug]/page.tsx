@@ -68,6 +68,8 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: { slug: string } }) {
   const item = await getItemDetailsBySlug(params.slug);
 
+  console.log(item);
+
   if (!item) return <div>No item found</div>;
 
   return (
@@ -82,24 +84,24 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
         <section>
           {/* Item Name */}
-          <h1 className="text-4xl font-bold mb-2">{item.name}</h1>
+          <h1 className="text-4xl font-bold mb-2">{item.attributes.name}</h1>
           <div className="px-4 flex justify-between items-end">
             <section>
               {/* Address */}
               <div className="flex items-center mb-2">
                 <MapPin className="inline text-accent -ml-1 mr-1" />
-                <p>{item.address ? item.address : "Davao City"}</p>
+                <p>{item.attributes.address ? item.attributes.address : "Davao City"}</p>
               </div>
               {/* Category, Type */}
               <div className="flex items-center font-bold">
                 <Milestone className="inline text-accent -ml-1 mr-1" />
                 <p className="pr-2">
-                  {item.date_sold !== null && (
+                  {item.attributes.date_sold !== null && (
                     <span className="text-warning">
-                      Sold on {new Date(item.date_sold).toLocaleDateString()}
+                      Sold on {new Date(item.attributes.date_sold).toLocaleDateString()}
                     </span>
                   )}
-                  {item.date_sold === null && (
+                  {item.attributes.date_sold === null && (
                     <span className="text-primary">Available</span>
                   )}
                 </p>
@@ -111,7 +113,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 <PhilippinePeso className="-ml-1 text-accent" />
                 <p>Price Range: </p>
 
-                {Array.from({ length: item.price }, (_, i) => (
+                {Array.from({ length: item.attributes.price }, (_, i) => (
                   <svg
                     key={`peso-${i}`}
                     width="14"

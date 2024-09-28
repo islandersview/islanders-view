@@ -17,7 +17,6 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://islandersview.com",
     title: "Islander's View",
     description: "Find your dream properties here in Davao City!",
   },
