@@ -19,6 +19,7 @@ export async function GET(
     }
   );
   const data = await item.json();
+
   if (data.data.length === 0) {
     return NextResponse.json({ error: "Item not found" }, { status: 404 });
   }
