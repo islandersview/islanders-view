@@ -14,8 +14,6 @@ export default async function Home() {
 
   const data = await res.json();
 
-  console.log(data);
-
   return (
     <main className="text-white">
       <section className="bg-gradient-to-bl from-[#191919] from-60% to-primary">

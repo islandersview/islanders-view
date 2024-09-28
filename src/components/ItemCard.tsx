@@ -32,7 +32,7 @@ export default function ItemCard({ onClick, item, className }: Props) {
             <span className="badge badge-outline badge-warning ml-2">Sold</span>
           )}
         </h2>
-        <p>
+        <p className="mb-2">
           <MapPin className="inline text-accent -ml-1 mr-1" />
           {item.attributes.address ? item.attributes.address : "Davao City"}
         </p>
