@@ -6,13 +6,6 @@ import ItemListing from "@/types/item-listing";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
-const getItems = async (params: any) => {
-  const query = new URLSearchParams(params).toString();
-  const res = await fetch(`/api/items?${query}`);
-  const data = await res.json();
-  return data;
-};
-
 export default function Page() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -44,6 +37,13 @@ export default function Page() {
 
   const [price, setPrice] = useState(searchParams.get("price") || "");
   const [sort, setSort] = useState(searchParams.get("sort") || "");
+
+  const getItems = useCallback(async (params: any) => {
+    const query = new URLSearchParams(params).toString();
+    const res = await fetch(`/api/items?${query}`);
+    const data = await res.json();
+    return data;
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
