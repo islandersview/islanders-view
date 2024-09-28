@@ -21,7 +21,6 @@ export default function ItemCard({ onClick, item, className }: Props) {
           className="transition-transform duration-300 ease-in-out transform hover:scale-110" // Add transition and transform classes
           width={500}
           height={500}
-          objectFit="fill"
         />
       </figure>
       <div className="card-body">
