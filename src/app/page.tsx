@@ -85,7 +85,7 @@ export default async function Home() {
               <p className="text-green-900 text-lg mt-2">
                 Best Deals on Wheels and Real Estate
               </p>
-              <div className="flex flex-col items-center justify-center gap-4 mt-8 lg:flex-row">
+              <div className="flex flex-col items-center justify-center gap-4 mt-8 lg:flex-row flex-wrap">
                 {/* temporary rendering, finalize after the card is final */}
                 {items.map((item: ItemListing) => (
                   <Link
