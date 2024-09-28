@@ -1,12 +1,7 @@
 import Carousel from "@/components/Carousel";
 import SectionWrapper from "@/components/SectionWrapper";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-import {
-  ArrowLeft,
-  MapPin,
-  Milestone,
-  PhilippinePeso
-} from "lucide-react";
+import { ArrowLeft, MapPin, Milestone, PhilippinePeso } from "lucide-react";
 import Link from "next/link";
 import { BiCategory } from "react-icons/bi";
 import { FaPhoneAlt } from "react-icons/fa";
@@ -70,7 +65,7 @@ export async function generateMetadata({
 }
 
 // Page component
-const Page = async ({ params }: { params: { slug: string } }) => {
+export default async function Page({ params }: { params: { slug: string } }) {
   const item = await getItemDetailsBySlug(params.slug);
 
   if (!item) return <div>No item found</div>;
@@ -190,6 +185,4 @@ const Page = async ({ params }: { params: { slug: string } }) => {
       </div>
     </SectionWrapper>
   );
-};
-
-export default Page;
+}

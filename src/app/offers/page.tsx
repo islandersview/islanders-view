@@ -13,7 +13,7 @@ const getItems = async (params: any) => {
   return data;
 };
 
-const Page = () => {
+export default function Page() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -559,9 +559,7 @@ const Page = () => {
       )}
     </SectionWrapper>
   );
-};
-
-export default Page;
+}
 
 //The page parameters would be updated, refer to url based on postman api
 //The page would be updated based on the parameters
