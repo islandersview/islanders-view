@@ -1,7 +1,6 @@
 import ItemListing from "@/types/item-listing";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
-import { FaPesoSign } from "react-icons/fa6";
 
 interface Props {
   onClick?: () => void;
