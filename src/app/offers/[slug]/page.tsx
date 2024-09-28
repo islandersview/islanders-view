@@ -31,13 +31,6 @@ const contactDetails = [
 
 //generate metadata
 
-// Function to fetch item details from the API
-const getItemDetailsBySlug = async (slug: string) => {
-  const res = await fetch(`${process.env.WEBSITE_URL}/api/item/?slug=${slug}`);
-  const data = await res.json();
-  return data;
-};
-
 // export async function generateMetadata({
 //   params,
 // }: {
@@ -66,9 +59,11 @@ const getItemDetailsBySlug = async (slug: string) => {
 
 // Page component
 export default async function Page({ params }: { params: { slug: string } }) {
-  const item : ItemListing = await getItemDetailsBySlug(params.slug);
-
-  console.log(item);
+  const res = await fetch(
+    `${process.env.WEBSITE_URL}/api/item/?slug=${params.slug}`
+  );
+  const data = await res.json();
+  const item: ItemListing = data;
 
   if (!item) return <div>No item found</div>;
 
@@ -90,7 +85,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
               {/* Address */}
               <div className="flex items-center mb-2">
                 <MapPin className="inline text-accent -ml-1 mr-1" />
-                <p>{item.attributes.address ? item.attributes.address : "Davao City"}</p>
+                <p>
+                  {item.attributes.address
+                    ? item.attributes.address
+                    : "Davao City"}
+                </p>
               </div>
               {/* Category, Type */}
               <div className="flex items-center font-bold">
@@ -98,7 +97,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 <p className="pr-2">
                   {item.attributes.date_sold !== null && (
                     <span className="text-warning">
-                      Sold on {new Date(item.attributes.date_sold).toLocaleDateString()}
+                      Sold on{" "}
+                      {new Date(item.attributes.date_sold).toLocaleDateString()}
                     </span>
                   )}
                   {item.attributes.date_sold === null && (
