@@ -22,7 +22,7 @@ const contactDetails = [
 ];
 
 export const metadata = {
-  title: "Contact Us | Islander's View",
+  title: "Contact Us",
   description: "Get in touch with us for your dream property.",
 };
 
