@@ -11,10 +11,13 @@ const images = [placeholderImg, placeholderImg, placeholderImg];
 
 export default async function Home() {
   const res = await fetch(`${process.env.WEBSITE_URL}/api/items?featured=true`);
-  let data;
+  let items: ItemListing[] | undefined;
   if (res) {
-    data = await res.json();
+    const data = await res.json();
+    items = data.data;
   }
+
+  console.log(items);
 
   return (
     <main className="text-white">
@@ -77,7 +80,7 @@ export default async function Home() {
         </SectionWrapper>
       </section>
       <section className="bg-gradient-to-t from-[#191919] to-lime-500 to-70% text-black relative">
-        {data && (
+        {items && (
           <SectionWrapper>
             <div className="text-center px-4 pt-24 pb-48">
               <h2 className="text-4xl font-semibold">Exclusive Offers</h2>
@@ -86,7 +89,7 @@ export default async function Home() {
               </p>
               <div className="flex flex-col items-center justify-center gap-4 mt-8 lg:flex-row">
                 {/* temporary rendering, finalize after the card is final */}
-                {data.data.map((item: ItemListing) => (
+                {items.map((item: ItemListing) => (
                   <Link
                     key={`item-${item.id}`}
                     href={`/offers/${item.attributes.slug}`}
