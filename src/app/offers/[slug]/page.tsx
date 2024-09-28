@@ -38,31 +38,31 @@ const getItemDetailsBySlug = async (slug: string) => {
   return data;
 };
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const data: ItemListing = await getItemDetailsBySlug(params.slug);
-  return {
-    title: data.attributes.name,
-    description: data.attributes.description,
-    image: data.attributes.images.data[0].attributes.url,
-    type: "website",
-    openGraph: {
-      type: "website",
-      title: data.attributes.name,
-      description: data.attributes.description,
-      images: [
-        {
-          url: data.attributes.images.data[0].attributes.url,
-          width: 800,
-          height: 600,
-        },
-      ],
-    },
-  };
-}
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: { slug: string };
+// }) {
+//   const data: ItemListing = await getItemDetailsBySlug(params.slug);
+//   return {
+//     title: data.attributes.name,
+//     description: data.attributes.description,
+//     image: data.attributes.images.data[0].attributes.url,
+//     type: "website",
+//     openGraph: {
+//       type: "website",
+//       title: data.attributes.name,
+//       description: data.attributes.description,
+//       images: [
+//         {
+//           url: data.attributes.images.data[0].attributes.url,
+//           width: 800,
+//           height: 600,
+//         },
+//       ],
+//     },
+//   };
+// }
 
 // Page component
 export default async function Page({ params }: { params: { slug: string } }) {
