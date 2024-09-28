@@ -1,5 +1,6 @@
 import Carousel from "@/components/Carousel";
 import SectionWrapper from "@/components/SectionWrapper";
+import ItemListing from "@/types/item-listing";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { ArrowLeft, MapPin, Milestone, PhilippinePeso } from "lucide-react";
 import Link from "next/link";
@@ -42,7 +43,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }) {
-  const data = await getItemDetailsBySlug(params.slug);
+  const data: ItemListing = await getItemDetailsBySlug(params.slug);
   return {
     title: data.attributes.name,
     description: data.attributes.description,
@@ -57,7 +58,6 @@ export async function generateMetadata({
           url: data.attributes.images.data[0].attributes.url,
           width: 800,
           height: 600,
-          alt: data.attributes.images.data[0].attributes.alt,
         },
       ],
     },
@@ -66,7 +66,7 @@ export async function generateMetadata({
 
 // Page component
 export default async function Page({ params }: { params: { slug: string } }) {
-  const item = await getItemDetailsBySlug(params.slug);
+  const item : ItemListing = await getItemDetailsBySlug(params.slug);
 
   console.log(item);
 

@@ -19,9 +19,7 @@ export default function Page() {
 
   const [loading, setLoading] = useState(true);
 
-  const [items, setItems] = useState<any[]>([]);
-
-  console.log(items);
+  const [items, setItems] = useState<ItemListing[]>([]);
 
   const [currentPage, setCurrentPage] = useState(
     Number(searchParams.get("page")) || 1
