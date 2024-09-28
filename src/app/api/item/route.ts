@@ -20,7 +20,7 @@ export async function GET(
   );
   const data = await item.json();
 
-  if (data.data.length === 0) {
+  if (!data || !data.data ||  data.data.length === 0) {
     return NextResponse.json({ error: "Item not found" }, { status: 404 });
   }
   return NextResponse.json(data.data[0], { status: 200 });
