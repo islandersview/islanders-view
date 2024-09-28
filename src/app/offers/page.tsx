@@ -4,7 +4,7 @@ import ItemCard from "@/components/ItemCard";
 import SectionWrapper from "@/components/SectionWrapper";
 import ItemListing from "@/types/item-listing";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const getItems = async (params: any) => {
   const query = new URLSearchParams(params).toString();
