@@ -59,11 +59,12 @@ const contactDetails = [
 
 // Page component
 export default async function Page({ params }: { params: { slug: string } }) {
-  // const res = await fetch(
-  //   `${process.env.WEBSITE_URL}/api/item/?slug=${params.slug}`
-  // );
-  // const data = await res.json();
-  // const item: ItemListing = data;
+  const res = await fetch(
+    `${process.env.WEBSITE_URL}/api/item/?slug=${params.slug}`,
+    { cache: "no-store" }
+  );
+  const data = await res.json();
+  const item: ItemListing = data;
 
   // if (!item) return <div>No item found</div>;
 

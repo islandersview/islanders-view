@@ -40,7 +40,7 @@ export default function Page() {
 
   const getItems = useCallback(async (params: any) => {
     const query = new URLSearchParams(params).toString();
-    const res = await fetch(`/api/items?${query}`);
+    const res = await fetch(`/api/items?${query}`, { cache: "no-store" });
     const data = await res.json();
     return data;
   }, []);
