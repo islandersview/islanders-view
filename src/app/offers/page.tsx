@@ -21,6 +21,8 @@ const Page = () => {
 
   const [items, setItems] = useState<any[]>([]);
 
+  console.log(items);
+
   const [currentPage, setCurrentPage] = useState(
     Number(searchParams.get("page")) || 1
   );
@@ -269,62 +271,65 @@ const Page = () => {
                   name="price"
                   value="1"
                   className="mask mask-peso bg-secondary"
-                  onChange={(e) => {          {/* Price */}
-                  <div className="mb-4">
-                    <h4 className="text-lg font-semibold mb-2">Price</h4>
-                    <div className="rating gap-1">
-                      <input
-                        type="radio"
-                        name="price"
-                        value="1"
-                        className="mask mask-peso bg-secondary"
-                        onChange={(e) => {
-                          setPrice(e.target.value);
-                          handleCheckboxChange("price", e.target.value);
-                        }}
-                      />
-                      <input
-                        type="radio"
-                        name="price"
-                        value="2"
-                        className="mask mask-peso bg-secondary"
-                        onChange={(e) => {
-                          setPrice(e.target.value);
-                          handleCheckboxChange("price", e.target.value);
-                        }}
-                      />
-                      <input
-                        type="radio"
-                        name="price"
-                        value="3"
-                        className="mask mask-peso bg-secondary"
-                        onChange={(e) => {
-                          setPrice(e.target.value);
-                          handleCheckboxChange("price", e.target.value);
-                        }}
-                      />
-                      <input
-                        type="radio"
-                        name="price"
-                        value="4"
-                        className="mask mask-peso bg-secondary"
-                        onChange={(e) => {
-                          setPrice(e.target.value);
-                          handleCheckboxChange("price", e.target.value);
-                        }}
-                      />
-                      <input
-                        type="radio"
-                        name="price"
-                        value="5"
-                        className="mask mask-peso bg-secondary"
-                        onChange={(e) => {
-                          setPrice(e.target.value);
-                          handleCheckboxChange("price", e.target.value);
-                        }}
-                      />
-                    </div>
-                  </div>
+                  onChange={(e) => {
+                    {
+                      /* Price */
+                    }
+                    <div className="mb-4">
+                      <h4 className="text-lg font-semibold mb-2">Price</h4>
+                      <div className="rating gap-1">
+                        <input
+                          type="radio"
+                          name="price"
+                          value="1"
+                          className="mask mask-peso bg-secondary"
+                          onChange={(e) => {
+                            setPrice(e.target.value);
+                            handleCheckboxChange("price", e.target.value);
+                          }}
+                        />
+                        <input
+                          type="radio"
+                          name="price"
+                          value="2"
+                          className="mask mask-peso bg-secondary"
+                          onChange={(e) => {
+                            setPrice(e.target.value);
+                            handleCheckboxChange("price", e.target.value);
+                          }}
+                        />
+                        <input
+                          type="radio"
+                          name="price"
+                          value="3"
+                          className="mask mask-peso bg-secondary"
+                          onChange={(e) => {
+                            setPrice(e.target.value);
+                            handleCheckboxChange("price", e.target.value);
+                          }}
+                        />
+                        <input
+                          type="radio"
+                          name="price"
+                          value="4"
+                          className="mask mask-peso bg-secondary"
+                          onChange={(e) => {
+                            setPrice(e.target.value);
+                            handleCheckboxChange("price", e.target.value);
+                          }}
+                        />
+                        <input
+                          type="radio"
+                          name="price"
+                          value="5"
+                          className="mask mask-peso bg-secondary"
+                          onChange={(e) => {
+                            setPrice(e.target.value);
+                            handleCheckboxChange("price", e.target.value);
+                          }}
+                        />
+                      </div>
+                    </div>;
                     setPrice(e.target.value);
                     handleCheckboxChange("price", e.target.value);
                   }}
