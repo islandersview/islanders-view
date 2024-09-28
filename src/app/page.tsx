@@ -11,8 +11,10 @@ const images = [placeholderImg, placeholderImg, placeholderImg];
 
 export default async function Home() {
   const res = await fetch(`${process.env.WEBSITE_URL}/api/items?featured=true`);
-
-  const data = await res.json();
+  let data;
+  if (res) {
+    data = await res.json();
+  }
 
   return (
     <main className="text-white">
@@ -75,40 +77,45 @@ export default async function Home() {
         </SectionWrapper>
       </section>
       <section className="bg-gradient-to-t from-[#191919] to-lime-500 to-70% text-black relative">
-        <SectionWrapper>
-          <div className="text-center px-4 pt-24 pb-48">
-            <h2 className="text-4xl font-semibold">Exclusive Offers</h2>
-            <p className="text-green-900 text-lg mt-2">
-              Best Deals on Wheels and Real Estate
-            </p>
-            <div className="flex flex-col items-center justify-center gap-4 mt-8 lg:flex-row">
-              {/* temporary rendering, finalize after the card is final */}
-              {data.data.map((item: ItemListing) => (
-                <Link key={`item-${item.id}`} href={`/offers/${item.attributes.slug}`}>
-                  <ItemCard
-                    key={item.id}
-                    item={item}
-                    className="max-w-[400px] text-left"
-                  />
-                </Link>
-              ))}
+        {data && (
+          <SectionWrapper>
+            <div className="text-center px-4 pt-24 pb-48">
+              <h2 className="text-4xl font-semibold">Exclusive Offers</h2>
+              <p className="text-green-900 text-lg mt-2">
+                Best Deals on Wheels and Real Estate
+              </p>
+              <div className="flex flex-col items-center justify-center gap-4 mt-8 lg:flex-row">
+                {/* temporary rendering, finalize after the card is final */}
+                {data.data.map((item: ItemListing) => (
+                  <Link
+                    key={`item-${item.id}`}
+                    href={`/offers/${item.attributes.slug}`}
+                  >
+                    <ItemCard
+                      key={item.id}
+                      item={item}
+                      className="max-w-[400px] text-left"
+                    />
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="custom-shape-divider-bottom-1722405483">
-            <svg
-              data-name="Layer 1"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 1200 120"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M1200 0L0 0 598.97 114.72 1200 0z"
-                className="shape-fill"
-              ></path>
-            </svg>
-          </div>
-        </SectionWrapper>
+            <div className="custom-shape-divider-bottom-1722405483">
+              <svg
+                data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1200 120"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M1200 0L0 0 598.97 114.72 1200 0z"
+                  className="shape-fill"
+                ></path>
+              </svg>
+            </div>
+          </SectionWrapper>
+        )}
       </section>
       <section className="bg-gradient-to-br from-80% from-[#191919] to-primary">
         <SectionWrapper>
