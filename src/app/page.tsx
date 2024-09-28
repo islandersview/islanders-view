@@ -21,7 +21,7 @@ export default async function Home() {
     <main className="text-white">
       <section className="bg-gradient-to-bl from-[#191919] from-60% to-primary">
         <SectionWrapper className="md:flex items-center">
-          <div className="px-6 py-24 md:py-0 ">
+          <div className="px-6 py-24 md:py-0">
             <h1 className="text-6xl xl:text-7xl font-extrabold">
               Find Your Dream <span className="text-secondary">Home</span>
             </h1>
@@ -31,6 +31,7 @@ export default async function Home() {
               or reliable vehicle with our trusted listings and enjoy the
               seamless buying experience you deserve.
             </p>
+
             <Link href={"/offers"}>
               <button className="btn btn-primary mt-6 btn-wide font-bold">
                 Explore Offers
@@ -95,7 +96,7 @@ export default async function Home() {
                     <ItemCard
                       key={item.id}
                       item={item}
-                      className="max-w-[400px] text-left"
+                      className="max-w-[400px] text-left text-white"
                     />
                   </Link>
                 ))}
