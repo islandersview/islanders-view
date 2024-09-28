@@ -17,8 +17,6 @@ export default async function Home() {
     items = data.data;
   }
 
-  console.log(items);
-
   return (
     <main className="text-white">
       <section className="bg-gradient-to-bl from-[#191919] from-60% to-primary">
