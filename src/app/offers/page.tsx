@@ -178,394 +178,386 @@ const Page = () => {
   }, [searchTerm, handleSearch]);
 
   return (
-    <Suspense>
-      <SectionWrapper>
-        {/* Search bar */}
-        <div className="flex max-w-2xl p-4 mb-2 mt-5 mx-auto">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="input input-bordered bg-white rounded-2xl w-full mr-2"
-          />
-          <button
-            onClick={handleSearch}
-            className="btn btn-primary text-white hover:btn-neutral rounded-2xl"
-          >
-            Search
-          </button>
-        </div>
+    <SectionWrapper>
+      {/* Search bar */}
+      <div className="flex max-w-2xl p-4 mb-2 mt-5 mx-auto">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="input input-bordered bg-white rounded-2xl w-full mr-2"
+        />
+        <button
+          onClick={handleSearch}
+          className="btn btn-primary text-white hover:btn-neutral rounded-2xl"
+        >
+          Search
+        </button>
+      </div>
 
-        <div className="flex flex-col lg:flex-row gap-4 text-white p-4 max-w-screen-2xl mx-auto">
-          {/* Sidebar */}
-          <div className="xl:w-[300px] py-6 px-4 bg-green-900 rounded-lg mr-4 h-min">
-            {/* Categories */}
-            <div className="flex flex-wrap gap-6 mb-6">
-              <div>
-                <h4 className="text-lg font-semibold mb-2">Category</h4>
-                <label className="flex items-center mb-2">
-                  <input
-                    type="checkbox"
-                    value="sale"
-                    checked={selectedCategories.includes("sale")}
-                    onChange={(e) =>
-                      handleCheckboxChange("category", e.target.value)
-                    }
-                    className="checkbox checkbox-secondary mr-2"
-                  />
-                  For Sale
-                </label>
-                <label className="flex items-center mb-2">
-                  <input
-                    type="checkbox"
-                    value="rent"
-                    checked={selectedCategories.includes("rent")}
-                    onChange={(e) =>
-                      handleCheckboxChange("category", e.target.value)
-                    }
-                    className="checkbox checkbox-secondary mr-2"
-                  />
-                  Rentals
-                </label>
-              </div>
-              {/* Types */}
-              <div className="mb-4">
-                <h4 className="text-lg font-semibold mb-2">Type</h4>
-                <label className="flex items-center mb-2">
-                  <input
-                    type="checkbox"
-                    value="real estate"
-                    checked={selectedTypes.includes("real estate")}
-                    onChange={(e) =>
-                      handleCheckboxChange("type", e.target.value)
-                    }
-                    className="checkbox checkbox-secondary mr-2"
-                  />
-                  Real Estate
-                </label>
-                <label className="flex items-center mb-2">
-                  <input
-                    type="checkbox"
-                    value="vehicle"
-                    checked={selectedTypes.includes("vehicle")}
-                    onChange={(e) =>
-                      handleCheckboxChange("type", e.target.value)
-                    }
-                    className="checkbox checkbox-secondary mr-2"
-                  />
-                  Vehicle
-                </label>
-                <label className="flex items-center mb-2">
-                  <input
-                    type="checkbox"
-                    value="other"
-                    checked={selectedTypes.includes("other")}
-                    onChange={(e) =>
-                      handleCheckboxChange("type", e.target.value)
-                    }
-                    className="checkbox checkbox-secondary mr-2"
-                  />
-                  Other
-                </label>
-              </div>
-              {/* Price */}
-              <div>
-                <h4 className="text-lg font-semibold mb-2">Price</h4>
-                <div className="rating gap-1">
-                  <input
-                    type="radio"
-                    name="price"
-                    value="1"
-                    className="mask mask-peso bg-secondary"
-                    onChange={(e) => {
-                      {
-                        /* Price */
-                      }
-                      <div className="mb-4">
-                        <h4 className="text-lg font-semibold mb-2">Price</h4>
-                        <div className="rating gap-1">
-                          <input
-                            type="radio"
-                            name="price"
-                            value="1"
-                            className="mask mask-peso bg-secondary"
-                            onChange={(e) => {
-                              setPrice(e.target.value);
-                              handleCheckboxChange("price", e.target.value);
-                            }}
-                          />
-                          <input
-                            type="radio"
-                            name="price"
-                            value="2"
-                            className="mask mask-peso bg-secondary"
-                            onChange={(e) => {
-                              setPrice(e.target.value);
-                              handleCheckboxChange("price", e.target.value);
-                            }}
-                          />
-                          <input
-                            type="radio"
-                            name="price"
-                            value="3"
-                            className="mask mask-peso bg-secondary"
-                            onChange={(e) => {
-                              setPrice(e.target.value);
-                              handleCheckboxChange("price", e.target.value);
-                            }}
-                          />
-                          <input
-                            type="radio"
-                            name="price"
-                            value="4"
-                            className="mask mask-peso bg-secondary"
-                            onChange={(e) => {
-                              setPrice(e.target.value);
-                              handleCheckboxChange("price", e.target.value);
-                            }}
-                          />
-                          <input
-                            type="radio"
-                            name="price"
-                            value="5"
-                            className="mask mask-peso bg-secondary"
-                            onChange={(e) => {
-                              setPrice(e.target.value);
-                              handleCheckboxChange("price", e.target.value);
-                            }}
-                          />
-                        </div>
-                      </div>;
-                      setPrice(e.target.value);
-                      handleCheckboxChange("price", e.target.value);
-                    }}
-                  />
-                  <input
-                    type="radio"
-                    name="price"
-                    value="2"
-                    className="mask mask-peso bg-secondary"
-                    onChange={(e) => {
-                      setPrice(e.target.value);
-                      handleCheckboxChange("price", e.target.value);
-                    }}
-                  />
-                  <input
-                    type="radio"
-                    name="price"
-                    value="3"
-                    className="mask mask-peso bg-secondary"
-                    onChange={(e) => {
-                      setPrice(e.target.value);
-                      handleCheckboxChange("price", e.target.value);
-                    }}
-                  />
-                  <input
-                    type="radio"
-                    name="price"
-                    value="4"
-                    className="mask mask-peso bg-secondary"
-                    onChange={(e) => {
-                      setPrice(e.target.value);
-                      handleCheckboxChange("price", e.target.value);
-                    }}
-                  />
-                  <input
-                    type="radio"
-                    name="price"
-                    value="5"
-                    className="mask mask-peso bg-secondary"
-                    onChange={(e) => {
-                      setPrice(e.target.value);
-                      handleCheckboxChange("price", e.target.value);
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Sort */}
+      <div className="flex flex-col lg:flex-row gap-4 text-white p-4 max-w-screen-2xl mx-auto">
+        {/* Sidebar */}
+        <div className="xl:w-[300px] py-6 px-4 bg-green-900 rounded-lg mr-4 h-min">
+          {/* Categories */}
+          <div className="flex flex-wrap gap-6 mb-6">
             <div>
-              <h4 className="text-lg font-semibold mb-2">Sort By</h4>
-              <select
-                value={sort}
-                onChange={(e) => {
-                  setSort(e.target.value);
-                  handleCheckboxChange("sort", e.target.value);
-                }}
-                className="p-2 border border-gray-300 rounded text-black w-full"
-              >
-                <option value="name:asc">Name: A-Z</option>
-                <option value="name:desc">Name: Z-A</option>
-                <option value="price:asc">Price Low to High</option>
-                <option value="price:desc">Price High to Low</option>
-                <option value="createdAt:asc">Newest First</option>
-                <option value="createdAt:desc">Oldest First</option>
-              </select>
+              <h4 className="text-lg font-semibold mb-2">Category</h4>
+              <label className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  value="sale"
+                  checked={selectedCategories.includes("sale")}
+                  onChange={(e) =>
+                    handleCheckboxChange("category", e.target.value)
+                  }
+                  className="checkbox checkbox-secondary mr-2"
+                />
+                For Sale
+              </label>
+              <label className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  value="rent"
+                  checked={selectedCategories.includes("rent")}
+                  onChange={(e) =>
+                    handleCheckboxChange("category", e.target.value)
+                  }
+                  className="checkbox checkbox-secondary mr-2"
+                />
+                Rentals
+              </label>
+            </div>
+            {/* Types */}
+            <div className="mb-4">
+              <h4 className="text-lg font-semibold mb-2">Type</h4>
+              <label className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  value="real estate"
+                  checked={selectedTypes.includes("real estate")}
+                  onChange={(e) => handleCheckboxChange("type", e.target.value)}
+                  className="checkbox checkbox-secondary mr-2"
+                />
+                Real Estate
+              </label>
+              <label className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  value="vehicle"
+                  checked={selectedTypes.includes("vehicle")}
+                  onChange={(e) => handleCheckboxChange("type", e.target.value)}
+                  className="checkbox checkbox-secondary mr-2"
+                />
+                Vehicle
+              </label>
+              <label className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  value="other"
+                  checked={selectedTypes.includes("other")}
+                  onChange={(e) => handleCheckboxChange("type", e.target.value)}
+                  className="checkbox checkbox-secondary mr-2"
+                />
+                Other
+              </label>
+            </div>
+            {/* Price */}
+            <div>
+              <h4 className="text-lg font-semibold mb-2">Price</h4>
+              <div className="rating gap-1">
+                <input
+                  type="radio"
+                  name="price"
+                  value="1"
+                  className="mask mask-peso bg-secondary"
+                  onChange={(e) => {
+                    {
+                      /* Price */
+                    }
+                    <div className="mb-4">
+                      <h4 className="text-lg font-semibold mb-2">Price</h4>
+                      <div className="rating gap-1">
+                        <input
+                          type="radio"
+                          name="price"
+                          value="1"
+                          className="mask mask-peso bg-secondary"
+                          onChange={(e) => {
+                            setPrice(e.target.value);
+                            handleCheckboxChange("price", e.target.value);
+                          }}
+                        />
+                        <input
+                          type="radio"
+                          name="price"
+                          value="2"
+                          className="mask mask-peso bg-secondary"
+                          onChange={(e) => {
+                            setPrice(e.target.value);
+                            handleCheckboxChange("price", e.target.value);
+                          }}
+                        />
+                        <input
+                          type="radio"
+                          name="price"
+                          value="3"
+                          className="mask mask-peso bg-secondary"
+                          onChange={(e) => {
+                            setPrice(e.target.value);
+                            handleCheckboxChange("price", e.target.value);
+                          }}
+                        />
+                        <input
+                          type="radio"
+                          name="price"
+                          value="4"
+                          className="mask mask-peso bg-secondary"
+                          onChange={(e) => {
+                            setPrice(e.target.value);
+                            handleCheckboxChange("price", e.target.value);
+                          }}
+                        />
+                        <input
+                          type="radio"
+                          name="price"
+                          value="5"
+                          className="mask mask-peso bg-secondary"
+                          onChange={(e) => {
+                            setPrice(e.target.value);
+                            handleCheckboxChange("price", e.target.value);
+                          }}
+                        />
+                      </div>
+                    </div>;
+                    setPrice(e.target.value);
+                    handleCheckboxChange("price", e.target.value);
+                  }}
+                />
+                <input
+                  type="radio"
+                  name="price"
+                  value="2"
+                  className="mask mask-peso bg-secondary"
+                  onChange={(e) => {
+                    setPrice(e.target.value);
+                    handleCheckboxChange("price", e.target.value);
+                  }}
+                />
+                <input
+                  type="radio"
+                  name="price"
+                  value="3"
+                  className="mask mask-peso bg-secondary"
+                  onChange={(e) => {
+                    setPrice(e.target.value);
+                    handleCheckboxChange("price", e.target.value);
+                  }}
+                />
+                <input
+                  type="radio"
+                  name="price"
+                  value="4"
+                  className="mask mask-peso bg-secondary"
+                  onChange={(e) => {
+                    setPrice(e.target.value);
+                    handleCheckboxChange("price", e.target.value);
+                  }}
+                />
+                <input
+                  type="radio"
+                  name="price"
+                  value="5"
+                  className="mask mask-peso bg-secondary"
+                  onChange={(e) => {
+                    setPrice(e.target.value);
+                    handleCheckboxChange("price", e.target.value);
+                  }}
+                />
+              </div>
             </div>
           </div>
-          {/* Items Grid */}
-          {!loading && (
-            <>
-              <div className="w-auto">
-                {items.length !== 0 && (
-                  <>
-                    {paginationData && (
-                      <div className="mb-2">
-                        {searchParams.get("name") && (
-                          <div>
-                            Search:{" "}
-                            <span className="font-bold">
-                              {searchParams.get("name")}
-                            </span>
-                          </div>
-                        )}
-                        <div>
-                          Showing{" "}
-                          {paginationData.pageSize * (paginationData.page - 1) +
-                            1}
-                          -
-                          {paginationData.pageSize * (paginationData.page - 1) +
-                            items.length}{" "}
-                          of {paginationData?.total}
-                        </div>
-                      </div>
-                    )}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {items.map((item: ItemListing, index) => (
-                        <ItemCard
-                          item={item}
-                          key={`item-card-${index}`}
-                          onClick={() => handleItemClick(item.attributes.slug)}
-                        />
-                      ))}
-                    </div>
-                  </>
-                )}
-                {items.length === 0 && (
-                  <div className="flex items-center justify-center">
-                    <h2 className="text-2xl font-semibold text-gray-500">
-                      No items found
-                    </h2>
-                  </div>
-                )}
-              </div>
-            </>
-          )}
-          {loading && (
-            <div className="flex gap-4">
-              {Array.from({ length: 4 }).map((_, index) => (
-                <div
-                  className="flex w-60 flex-col gap-6 "
-                  key={`skeleton-${index}`}
-                >
-                  <div className="skeleton h-32 w-full"></div>
-                  <div className="skeleton h-4 w-28"></div>
-                  <div className="skeleton h-4 w-full"></div>
-                  <div className="skeleton h-4 w-full"></div>
-                </div>
-              ))}
-            </div>
-          )}
+
+          {/* Sort */}
+          <div>
+            <h4 className="text-lg font-semibold mb-2">Sort By</h4>
+            <select
+              value={sort}
+              onChange={(e) => {
+                setSort(e.target.value);
+                handleCheckboxChange("sort", e.target.value);
+              }}
+              className="p-2 border border-gray-300 rounded text-black w-full"
+            >
+              <option value="name:asc">Name: A-Z</option>
+              <option value="name:desc">Name: Z-A</option>
+              <option value="price:asc">Price Low to High</option>
+              <option value="price:desc">Price High to Low</option>
+              <option value="createdAt:asc">Newest First</option>
+              <option value="createdAt:desc">Oldest First</option>
+            </select>
+          </div>
         </div>
-
-        {/* Pagination */}
-        {pageCount !== 0 && (
-          <div className="flex justify-center mt-4 mb-8">
-            <div className="join ">
-              {/* Previous Button */}
-              <button
-                className={`join-item btn btn-outline-primary text-primary text-2xl ${
-                  currentPage === 1 && "btn-disabled"
-                }`}
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-              >
-                «
-              </button>
-
-              {/* Page Numbers with Ellipsis */}
-              {(() => {
-                const pageButtons = [];
-
-                // Add the first page
-                pageButtons.push({
-                  pageNumberDisplay: "1",
-                  pageNumberFunction: 1,
-                });
-
-                // Add ellipsis if necessary
-                if (currentPage > 5) {
-                  pageButtons.push({
-                    pageNumberDisplay: "...",
-                    pageNumberFunction: currentPage - 1,
-                  }); // Navigate to the page above
-                }
-
-                // Determine the range of current and surrounding pages
-                const startPage = Math.max(2, currentPage - 2);
-                const endPage = Math.min(pageCount - 1, currentPage + 2);
-                for (let i = startPage; i <= endPage; i++) {
-                  pageButtons.push({
-                    pageNumberDisplay: i.toString(),
-                    pageNumberFunction: i,
-                  });
-                }
-
-                // Add ellipsis and last page if necessary
-                if (currentPage < pageCount - 3) {
-                  if (currentPage < pageCount - 4) {
-                    pageButtons.push({
-                      pageNumberDisplay: "...",
-                      pageNumberFunction: currentPage + 1,
-                    }); // Navigate to the page below
-                  }
-                }
-                pageButtons.push({
-                  pageNumberDisplay: pageCount.toString(),
-                  pageNumberFunction: pageCount,
-                });
-
-                return pageButtons.map((page, index) =>
-                  page.pageNumberFunction === null ? (
-                    <button
-                      key={index}
-                      className="join-item btn text-primary"
-                      onClick={() => handlePageChange(currentPage + 1)} // Default action (you can adjust this)
-                    >
-                      {page.pageNumberDisplay}
-                    </button>
-                  ) : (
-                    <button
-                      key={index}
-                      className={`join-item btn btn-outline-primary text-primary ${
-                        currentPage === page.pageNumberFunction &&
-                        "border-primary z-20"
-                      }`}
-                      onClick={() => handlePageChange(page.pageNumberFunction)}
-                    >
-                      {page.pageNumberDisplay}
-                    </button>
-                  )
-                );
-              })()}
-
-              {/* Next Button */}
-              <button
-                className={`join-item btn btn-outline-primary text-primary text-2xl ${
-                  currentPage === pageCount && "btn-disabled"
-                }`}
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === pageCount}
-              >
-                »
-              </button>
+        {/* Items Grid */}
+        {!loading && (
+          <>
+            <div className="w-auto">
+              {items.length !== 0 && (
+                <>
+                  {paginationData && (
+                    <div className="mb-2">
+                      {searchParams.get("name") && (
+                        <div>
+                          Search:{" "}
+                          <span className="font-bold">
+                            {searchParams.get("name")}
+                          </span>
+                        </div>
+                      )}
+                      <div>
+                        Showing{" "}
+                        {paginationData.pageSize * (paginationData.page - 1) +
+                          1}
+                        -
+                        {paginationData.pageSize * (paginationData.page - 1) +
+                          items.length}{" "}
+                        of {paginationData?.total}
+                      </div>
+                    </div>
+                  )}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {items.map((item: ItemListing, index) => (
+                      <ItemCard
+                        item={item}
+                        key={`item-card-${index}`}
+                        onClick={() => handleItemClick(item.attributes.slug)}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+              {items.length === 0 && (
+                <div className="flex items-center justify-center">
+                  <h2 className="text-2xl font-semibold text-gray-500">
+                    No items found
+                  </h2>
+                </div>
+              )}
             </div>
+          </>
+        )}
+        {loading && (
+          <div className="flex gap-4">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div
+                className="flex w-60 flex-col gap-6 "
+                key={`skeleton-${index}`}
+              >
+                <div className="skeleton h-32 w-full"></div>
+                <div className="skeleton h-4 w-28"></div>
+                <div className="skeleton h-4 w-full"></div>
+                <div className="skeleton h-4 w-full"></div>
+              </div>
+            ))}
           </div>
         )}
-      </SectionWrapper>
-    </Suspense>
+      </div>
+
+      {/* Pagination */}
+      {pageCount !== 0 && (
+        <div className="flex justify-center mt-4 mb-8">
+          <div className="join ">
+            {/* Previous Button */}
+            <button
+              className={`join-item btn btn-outline-primary text-primary text-2xl ${
+                currentPage === 1 && "btn-disabled"
+              }`}
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              «
+            </button>
+
+            {/* Page Numbers with Ellipsis */}
+            {(() => {
+              const pageButtons = [];
+
+              // Add the first page
+              pageButtons.push({
+                pageNumberDisplay: "1",
+                pageNumberFunction: 1,
+              });
+
+              // Add ellipsis if necessary
+              if (currentPage > 5) {
+                pageButtons.push({
+                  pageNumberDisplay: "...",
+                  pageNumberFunction: currentPage - 1,
+                }); // Navigate to the page above
+              }
+
+              // Determine the range of current and surrounding pages
+              const startPage = Math.max(2, currentPage - 2);
+              const endPage = Math.min(pageCount - 1, currentPage + 2);
+              for (let i = startPage; i <= endPage; i++) {
+                pageButtons.push({
+                  pageNumberDisplay: i.toString(),
+                  pageNumberFunction: i,
+                });
+              }
+
+              // Add ellipsis and last page if necessary
+              if (currentPage < pageCount - 3) {
+                if (currentPage < pageCount - 4) {
+                  pageButtons.push({
+                    pageNumberDisplay: "...",
+                    pageNumberFunction: currentPage + 1,
+                  }); // Navigate to the page below
+                }
+              }
+              pageButtons.push({
+                pageNumberDisplay: pageCount.toString(),
+                pageNumberFunction: pageCount,
+              });
+
+              return pageButtons.map((page, index) =>
+                page.pageNumberFunction === null ? (
+                  <button
+                    key={index}
+                    className="join-item btn text-primary"
+                    onClick={() => handlePageChange(currentPage + 1)} // Default action (you can adjust this)
+                  >
+                    {page.pageNumberDisplay}
+                  </button>
+                ) : (
+                  <button
+                    key={index}
+                    className={`join-item btn btn-outline-primary text-primary ${
+                      currentPage === page.pageNumberFunction &&
+                      "border-primary z-20"
+                    }`}
+                    onClick={() => handlePageChange(page.pageNumberFunction)}
+                  >
+                    {page.pageNumberDisplay}
+                  </button>
+                )
+              );
+            })()}
+
+            {/* Next Button */}
+            <button
+              className={`join-item btn btn-outline-primary text-primary text-2xl ${
+                currentPage === pageCount && "btn-disabled"
+              }`}
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === pageCount}
+            >
+              »
+            </button>
+          </div>
+        </div>
+      )}
+    </SectionWrapper>
   );
 };
 
