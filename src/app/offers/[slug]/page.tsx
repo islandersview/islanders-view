@@ -1,20 +1,17 @@
+import Carousel from "@/components/Carousel";
 import SectionWrapper from "@/components/SectionWrapper";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import {
   ArrowLeft,
   MapPin,
   Milestone,
-  PhilippinePeso,
-  Section,
+  PhilippinePeso
 } from "lucide-react";
-import Image from "next/image";
-import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-import React, { useRef, useState } from "react";
+import Link from "next/link";
+import { BiCategory } from "react-icons/bi";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaFacebookMessenger, FaViber } from "react-icons/fa6";
 import { IoIosMail } from "react-icons/io";
-import { BiCategory } from "react-icons/bi";
-import Carousel from "@/components/Carousel";
-import Link from "next/link";
 
 // Contact Information
 const contactDetails = [
