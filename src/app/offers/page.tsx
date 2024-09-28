@@ -478,6 +478,11 @@ export default function Page() {
 
             {/* Page Numbers with Ellipsis */}
             {(() => {
+              if (pageCount === 1) {
+                return (
+                  <button className="join-item btn text-primary">1</button>
+                );
+              }
               const pageButtons = [];
 
               // Add the first page
