@@ -1,8 +1,9 @@
 "use client";
+import ItemListing from "@/types/item-listing";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
-export default function Carousel({ item }: { item: any }) {
+export default function Carousel({ item }: { item: ItemListing }) {
   const [activeSlide, setActiveSlide] = useState(1);
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -31,7 +32,7 @@ export default function Carousel({ item }: { item: any }) {
             <Image
               key={index}
               src={image.attributes.url}
-              alt={`${item.attributes.title} Image`}
+              alt={`${item.attributes.name} Image`}
               width={500}
               height={500}
               className="w-full h-auto"
