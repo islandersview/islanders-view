@@ -53,7 +53,7 @@ type ItemAttributes = {
   description: any; // description can be of any type
   category: string;
   type: string;
-  date_sold: string | null;
+  sold: boolean;
   is_featured: boolean;
   createdAt: string;
   updatedAt: string;

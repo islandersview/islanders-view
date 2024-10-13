@@ -37,6 +37,7 @@ export default function Page() {
 
   const [price, setPrice] = useState(searchParams.get("price") || "");
   const [sort, setSort] = useState(searchParams.get("sort") || "");
+  const [sold, setSold] = useState(searchParams.get("sold") === "true");
 
   const getItems = useCallback(async (params: any) => {
     const query = new URLSearchParams(params).toString();
@@ -55,6 +56,7 @@ export default function Page() {
           type: selectedTypes.filter(Boolean).join(","),
           price: price || "",
           sort: sort || "",
+          sold: sold ? "true" : "false",
           page: currentPage,
         };
         const data = await getItems(params);
@@ -74,6 +76,8 @@ export default function Page() {
     selectedTypes,
     price,
     sort,
+    sold,
+    getItems,
   ]);
 
   useEffect(() => {
@@ -83,11 +87,12 @@ export default function Page() {
       type: selectedTypes.join(","),
       price: price,
       sort: sort,
+      sold: sold ? "true" : "false", // Add sold to query params
       page: "1", // Reset to the first page when filters change
     });
 
     router.push(`/offers?${newQuery.toString()}`);
-  }, [selectedCategories, selectedTypes, price, sort]); // Only run when these change
+  }, [selectedCategories, selectedTypes, price, sort, sold]); // Only run when these change
 
   const handleCheckboxChange = (key: any, value: any) => {
     if (key === "category") {
@@ -106,6 +111,8 @@ export default function Page() {
       setPrice(value);
     } else if (key === "sort") {
       setSort(value);
+    } else if (key === "sold") {
+      setSold((prev) => !prev); // Toggle the sold filter
     }
   };
 
@@ -259,6 +266,16 @@ export default function Page() {
                 />
                 Other
               </label>
+
+              <div className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  checked={sold}
+                  onChange={() => handleCheckboxChange("sold", "")}
+                  className="checkbox checkbox-secondary mr-2"
+                />
+                <label>Hide Sold Items</label>
+              </div>
             </div>
             {/* Price */}
             <div>

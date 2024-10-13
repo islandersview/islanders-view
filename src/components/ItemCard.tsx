@@ -26,7 +26,7 @@ export default function ItemCard({ onClick, item, className }: Props) {
       <div className="card-body">
         <h2 className="card-title">
           {item.attributes.name}
-          {item.attributes.date_sold && (
+          {item.attributes.sold && (
             <span className="badge badge-outline badge-warning ml-2">Sold</span>
           )}
         </h2>

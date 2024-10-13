@@ -99,13 +99,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <div className="flex items-center font-bold">
                 <Milestone className="inline text-accent -ml-1 mr-1" />
                 <p className="pr-2">
-                  {item.attributes.date_sold && (
+                  {item.attributes.sold && (
                     <span className="text-warning">
-                      Sold on{" "}
-                      {new Date(item.attributes.date_sold).toLocaleDateString()}
+                      Sold
                     </span>
                   )}
-                  {!item.attributes.date_sold && (
+                  {!item.attributes.sold && (
                     <span className="text-primary">Available</span>
                   )}
                 </p>

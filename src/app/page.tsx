@@ -64,7 +64,7 @@ export default async function Home() {
             </p>
 
             <div className="flex xl:justify-end">
-              <button className="btn btn-primary mt-6 btn-wide font-bold text-xl">
+              <button className="btn btn-primary mt-6 btn-wide font-bold text-xl text-white">
                 <Link href={"/offers"}>Explore Offers</Link>
               </button>
             </div>
@@ -95,6 +95,11 @@ export default async function Home() {
                   </Link>
                 ))}
               </div>
+              <div className="flex justify-center">
+              <button className="btn btn-primary mt-6 btn-wide font-bold text-xl text-white">
+                <Link href={"/offers"}>View More Offers</Link>
+              </button>
+            </div>
             </div>
 
             <div className="custom-shape-divider-bottom-1722405483">
