@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "../assets/globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar/Navbar";
+import { Analytics } from "@vercel/analytics/react"
 
 const font = Poppins({ weight: "400", subsets: ["latin"] });
 
@@ -35,6 +36,7 @@ export default function RootLayout({
         <div className="mt-auto">
           <Footer />
         </div>
+        <Analytics/>
       </body>
     </html>
   );
