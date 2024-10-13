@@ -192,7 +192,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             <div className="mt-6 text-center">
               <a
                 href="mailto:islandersview.inquiry@gmail.com"
-                className="inline-block bg-secondary btn-wide text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-opacity-80 transition duration-200"
+                className="inline-block bg-primary btn-wide text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-opacity-80 transition duration-200"
               >
                 Mail Us Now!
               </a>
