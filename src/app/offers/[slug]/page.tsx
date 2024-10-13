@@ -64,7 +64,7 @@ export async function generateMetadata({
 // Page component
 export default async function Page({ params }: { params: { slug: string } }) {
   const res = await fetch(
-    `${process.env.WEBSITE_URL}/api/item/?slug=${params.slug}`
+    `${process.env.WEBSITE_URL}/api/item/?slug=${params.slug}`, {cache: "no-store"}
   );
   const data = await res.json();
   const item: ItemListing = data;
@@ -99,13 +99,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <div className="flex items-center font-bold">
                 <Milestone className="inline text-accent -ml-1 mr-1" />
                 <p className="pr-2">
-                  {item.attributes.date_sold !== null && (
+                  {item.attributes.date_sold && (
                     <span className="text-warning">
                       Sold on{" "}
                       {new Date(item.attributes.date_sold).toLocaleDateString()}
                     </span>
                   )}
-                  {item.attributes.date_sold === null && (
+                  {!item.attributes.date_sold && (
                     <span className="text-primary">Available</span>
                   )}
                 </p>
