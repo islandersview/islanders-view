@@ -1,4 +1,5 @@
 import Carousel from "@/components/Carousel";
+import PropertyLinkButton from "@/components/CopyPropertyLink";
 import SectionWrapper from "@/components/SectionWrapper";
 import ItemListing from "@/types/item-listing";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
@@ -64,7 +65,8 @@ export async function generateMetadata({
 // Page component
 export default async function Page({ params }: { params: { slug: string } }) {
   const res = await fetch(
-    `${process.env.WEBSITE_URL}/api/item/?slug=${params.slug}`, {cache: "no-store"}
+    `${process.env.WEBSITE_URL}/api/item/?slug=${params.slug}`,
+    { cache: "no-store" }
   );
   const data = await res.json();
   const item: ItemListing = data;
@@ -84,6 +86,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <section>
           {/* Item Name */}
           <h1 className="text-4xl font-bold mb-2">{item.attributes.name}</h1>
+          <PropertyLinkButton
+            propertyLink={`${process.env.WEBSITE_URL}/offers/${item.attributes.slug}`}
+          />
+
           <div className="px-4 flex justify-between items-end">
             <section>
               {/* Address */}
@@ -100,9 +106,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 <Milestone className="inline text-accent -ml-1 mr-1" />
                 <p className="pr-2">
                   {item.attributes.sold && (
-                    <span className="text-warning">
-                      Sold
-                    </span>
+                    <span className="text-warning">Sold</span>
                   )}
                   {!item.attributes.sold && (
                     <span className="text-primary">Available</span>
@@ -163,11 +167,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <section className=" bg-black bg-opacity-75 rounded-2xl py-6 px-12 mt-5 mx-auto">
           <div className="mb-4">
             <h1 className=" text-2xl font-bold">
-              Get In <span className="text-secondary">Touch</span> With Us!
+              <span className="text-secondary">Interested</span> in this
+              property?
             </h1>
             <p className="mt-4 text">
-              Interested in the property? Don&apos;t wait until your chance is
-              over. Contact us now!
+              Don&apos;t wait until your chance is over. Contact us now!
             </p>
           </div>
           <div>
@@ -185,6 +189,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 </div>
               </div>
             ))}
+            <div className="mt-6 text-center">
+              <a
+                href="mailto:islandersview.inquiry@gmail.com"
+                className="inline-block bg-secondary btn-wide text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-opacity-80 transition duration-200"
+              >
+                Mail Us Now!
+              </a>
+            </div>
           </div>
         </section>
       </div>
