@@ -10,7 +10,7 @@ import ItemCard from "@/components/ItemCard";
 const images = [placeholderImg, placeholderImg, placeholderImg];
 
 export default async function Home() {
-  const res = await fetch(`${process.env.WEBSITE_URL}/api/items?featured=true`);
+  const res = await fetch(`${process.env.WEBSITE_URL}/api/items?featured=true`, {cache: "no-store"});
   let items: ItemListing[] | undefined;
   if (res) {
     const data = await res.json();
