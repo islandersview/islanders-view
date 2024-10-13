@@ -18,7 +18,7 @@ export default function Carousel({ item }: { item: ItemListing }) {
   };
 
   return (
-    <section className="mx-auto w-full max-w-[800px]">
+    <section className="mx-auto w-full max-w-[1000px]">
       <div
         ref={carouselRef}
         className="carousel mx-auto w-full mb-4 rounded-md"
