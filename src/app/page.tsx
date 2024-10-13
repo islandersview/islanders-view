@@ -63,7 +63,7 @@ export default async function Home() {
               seamless buying experience you deserve.
             </p>
 
-            <div className="flex justify-end">
+            <div className="flex xl:justify-end">
               <button className="btn btn-primary mt-6 btn-wide font-bold text-xl">
                 <Link href={"/offers"}>Explore Offers</Link>
               </button>
