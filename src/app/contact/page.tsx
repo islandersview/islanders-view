@@ -29,7 +29,7 @@ export default function Page() {
       bg-[radial-gradient(at_right,_var(--tw-gradient-stops))] to-[#191919] from-primary
       text-white min-h-[80vh]"
     >
-      <SectionWrapper>
+      <SectionWrapper className="mx-auto">
         <div className="px-2 py-24">
           <div className="text-center">
             <h1 className=" text-5xl font-bold">

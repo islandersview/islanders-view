@@ -51,8 +51,7 @@ export default async function Home() {
     <main className="text-white">
       <section className="bg-[linear-gradient(to_top,rgba(49,84,44,0.9)10%,rgba(49,84,44,0)),url('/bg.jpg')] bg-cover bg-no-repeat min-h-[90vh] flex">
         <SectionWrapper className="md:flex items-center justify-end min-h-full mx-0 ml-auto">
-          {/* Align contents to the bottom right */}
-          <div className="px-6 py-24 md:py-0 xl:text-right lg:px-20 max-w-[1200px]">
+          <div className="px-6 py-24 md:py-0 xl:text-right lg:px-20 max-w-[1200px] ml-auto">
             <h1 className="text-6xl xl:text-7xl font-extrabold">
               Find Your Dream <span className="text-secondary">Home</span>
             </h1>
@@ -74,7 +73,7 @@ export default async function Home() {
 
       <section className="bg-gradient-to-t from-[#191919] to-lime-500 to-70% text-black relative">
         {items && (
-          <SectionWrapper>
+          <SectionWrapper className="mx-auto">
             <div className="text-center px-4 pt-24 pb-48">
               <h2 className="text-4xl font-semibold">Exclusive Offers</h2>
               <p className="text-green-900 text-lg mt-2">
@@ -119,7 +118,7 @@ export default async function Home() {
         )}
       </section>
       <section className="bg-gradient-to-br from-80% from-[#191919] to-primary">
-        <SectionWrapper>
+        <SectionWrapper className="mx-auto">
           <div className="px-4 py-24">
             <div className="flex items-center justify-center gap-4">
               <Image

@@ -74,7 +74,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   if (!item) return <div>No item found</div>;
 
   return (
-    <SectionWrapper>
+    <SectionWrapper className="mx-auto">
       <div className="max-w-7xl mx-auto my-2 p-4 text-white">
         {/* Back Button */}
         <Link href={"/offers"}>

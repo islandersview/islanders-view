@@ -183,7 +183,7 @@ export default function Page() {
   }, [searchTerm, handleSearch]);
 
   return (
-    <SectionWrapper>
+    <SectionWrapper className="mx-auto">
       {/* Search bar */}
       <div className="flex max-w-2xl p-4 mb-2 mt-5 mx-auto">
         <input

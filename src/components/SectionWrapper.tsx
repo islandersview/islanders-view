@@ -6,7 +6,7 @@ export default function SectionWrapper({
   className?: string;
 }) {
   return (
-    <section className={`max-w-[1920px] mx-auto ${className}`}>
+    <section className={`max-w-[1920px] ${className}`}>
       {children}
     </section>
   );
