@@ -6,11 +6,41 @@ import logo from "/public/logo.png";
 import logotext from "/public/logo-text.png";
 import ItemListing from "@/types/item-listing";
 import ItemCard from "@/components/ItemCard";
+import { Metadata } from "next";
 
 const images = [placeholderImg, placeholderImg, placeholderImg];
 
+export const metadata: Metadata = {
+  title: {
+    absolute: "Islander's View",
+    template: "%s | Islander's View",
+  },
+  description: "Find your dream properties here in Davao City!",
+  icons: ["/logo.png"],
+  keywords: [
+    "real estate",
+    "properties",
+    "vehicles",
+    "Davao City",
+    "Samal",
+    "Islander's View",
+    "Islander's View Davao",
+    "Islander's View Samal",
+    "Islander's View Davao City",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    title: "Islander's View",
+    description: "Find your dream properties here in Davao City!",
+  },
+};
+
 export default async function Home() {
-  const res = await fetch(`${process.env.WEBSITE_URL}/api/items?featured=true`, {cache: "no-store"});
+  const res = await fetch(
+    `${process.env.WEBSITE_URL}/api/items?featured=true`,
+    { cache: "no-store" }
+  );
   let items: ItemListing[] | undefined;
   if (res) {
     const data = await res.json();
@@ -19,65 +49,29 @@ export default async function Home() {
 
   return (
     <main className="text-white">
-      <section className="bg-gradient-to-bl from-[#191919] from-60% to-primary">
-        <SectionWrapper className="md:flex items-center">
-          <div className="px-6 py-24 md:py-0">
+      <section className="bg-[linear-gradient(to_top,rgba(49,84,44,0.9)10%,rgba(49,84,44,0)),url('/bg.jpg')] bg-cover bg-no-repeat min-h-[90vh] flex">
+        <SectionWrapper className="md:flex items-center justify-end min-h-full mx-0 ml-auto">
+          {/* Align contents to the bottom right */}
+          <div className="px-6 py-24 md:py-0 xl:text-right lg:px-20 max-w-[1200px]">
             <h1 className="text-6xl xl:text-7xl font-extrabold">
               Find Your Dream <span className="text-secondary">Home</span>
             </h1>
             <p className="mt-6 lg:text-xl">
               Welcome to Islander&apos;s View, your go-to for exceptional real
-              estate and vehicles in Samal and beyond. Discover your dream home
+              estate and vehicles in Davao and beyond. Discover your dream home
               or reliable vehicle with our trusted listings and enjoy the
               seamless buying experience you deserve.
             </p>
 
-            <Link href={"/offers"}>
-              <button className="btn btn-primary mt-6 btn-wide font-bold">
-                Explore Offers
+            <div className="flex justify-end">
+              <button className="btn btn-primary mt-6 btn-wide font-bold text-xl">
+                <Link href={"/offers"}>Explore Offers</Link>
               </button>
-            </Link>
-          </div>
-          <div>
-            <div className="carousel mx-auto w-full xl:max-w-[1400px]">
-              {
-                //carousel items
-                images.map((image, index) => (
-                  <div
-                    key={index}
-                    className={`carousel-item relative w-full ${
-                      index === 0 ? "active" : ""
-                    }`}
-                    id={`slide${index + 1}`}
-                  >
-                    <Image
-                      src={image}
-                      className="w-full"
-                      alt="featured image"
-                    />
-                    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                      <a
-                        href={`#slide${index === 0 ? images.length : index}`}
-                        className="btn btn-circle"
-                      >
-                        ❮
-                      </a>
-                      <a
-                        href={`#slide${
-                          index === images.length - 1 ? 1 : index + 2
-                        }`}
-                        className="btn btn-circle"
-                      >
-                        ❯
-                      </a>
-                    </div>
-                  </div>
-                ))
-              }
             </div>
           </div>
         </SectionWrapper>
       </section>
+
       <section className="bg-gradient-to-t from-[#191919] to-lime-500 to-70% text-black relative">
         {items && (
           <SectionWrapper>
